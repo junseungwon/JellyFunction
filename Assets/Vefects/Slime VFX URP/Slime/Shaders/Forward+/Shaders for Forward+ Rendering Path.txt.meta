@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2a9d066b5708bbd478531d3d182ca706
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283147
+  packageName: Slime VFX - URP
+  packageVersion: 1.0.2023.02
+  assetPath: Assets/Vefects/Slime VFX URP/Slime/Shaders/Forward+/Shaders for Forward+
+    Rendering Path.txt
+  uploadId: 743267

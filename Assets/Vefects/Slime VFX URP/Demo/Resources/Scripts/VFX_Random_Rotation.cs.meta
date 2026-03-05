@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c5bb7bdc8e931874e888b26555553cf3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283147
+  packageName: Slime VFX - URP
+  packageVersion: 1.0.2023.02
+  assetPath: Assets/Vefects/Slime VFX URP/Demo/Resources/Scripts/VFX_Random_Rotation.cs
+  uploadId: 743267

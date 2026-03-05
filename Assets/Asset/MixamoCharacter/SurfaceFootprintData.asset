@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f9ff29180536c44bff4c6e3e7a08fd, type: 3}
+  m_Name: SurfaceFootprintData
+  m_EditorClassIdentifier: 
+  surfaceTag: Basic
+  footprintPrefab: {fileID: 6805802507282012068, guid: a167f5fba0d79804dbcfb15f1738b17c, type: 3}
+  lifetime: 5
+  fadeOutDuration: 3
