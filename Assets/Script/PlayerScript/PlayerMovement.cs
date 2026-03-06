@@ -71,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Animator
         float animSpeed = inputDir.magnitude * (isRunning ? 2f : 1f);
-         _anim.SetFloat(ANIM_SPEED, animSpeed, 0.1f, Time.fixedDeltaTime);
+        if(_anim != null)
+        {
+            _anim.SetFloat(ANIM_SPEED, animSpeed, 0.1f, Time.fixedDeltaTime);
+        }
     }
 }

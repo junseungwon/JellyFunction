@@ -34,6 +34,8 @@ namespace SpherifySystem
             origNative   = new NativeArray<Vector3>(snapshot.originalVertices,     Allocator.Persistent);
             targetNative = new NativeArray<Vector3>(snapshot.sphereTargetVertices, Allocator.Persistent);
             outputNative = new NativeArray<Vector3>(snapshot.VertexCount,          Allocator.Persistent);
+
+            Debug.Log($"[SpherifyJobRunner] 생성 완료 | 버텍스 수: {snapshot.VertexCount}");
         }
 
         public void Run(MeshDataSnapshot snapshot, float t)
@@ -60,6 +62,8 @@ namespace SpherifySystem
             if (origNative.IsCreated)   origNative.Dispose();
             if (targetNative.IsCreated) targetNative.Dispose();
             if (outputNative.IsCreated) outputNative.Dispose();
+
+            Debug.Log("[SpherifyJobRunner] ✅ Dispose 완료");
         }
     }
 }

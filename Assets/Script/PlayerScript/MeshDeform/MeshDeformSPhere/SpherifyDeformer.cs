@@ -12,6 +12,9 @@ namespace SpherifySystem
         [Header("Performance")]
         [SerializeField] bool useJobSystem = true;
 
+        [Header("Debug")]
+        [SerializeField] bool _showDebugLog = true;
+
         // ── 내부 상태 ────────────────────────────────────────────
         MeshFilter       meshFilter;
         Mesh             deformMesh;
@@ -38,6 +41,9 @@ namespace SpherifySystem
 
             if (useJobSystem)
                 jobRunner = new SpherifyJobRunner(snapshot);
+
+            if (_showDebugLog)
+                Debug.Log($"[SpherifyDeformer] 초기화 완료 | 버텍스 수: {snapshot.VertexCount} | 반지름: {CurrentRadius:F3} | JobSystem: {useJobSystem}");
         }
 
         // ── 변형 적용 ────────────────────────────────────────────
@@ -73,6 +79,9 @@ namespace SpherifySystem
         // ── 강제 원본 복원 (외부 호출용) ─────────────────────────
         public void ForceRevert()
         {
+            if (_showDebugLog)
+                Debug.Log("[SpherifyDeformer] 강제 원본 복원 시작...");
+
             SpherifyAmount = 0f;
 
             System.Array.Copy(
@@ -84,7 +93,26 @@ namespace SpherifySystem
             deformMesh.vertices = snapshot.currentVertices;
             deformMesh.RecalculateNormals();
             deformMesh.RecalculateBounds();
+
+            if (_showDebugLog)
+                Debug.Log("[SpherifyDeformer] ✅ 강제 원본 복원 완료");
         }
+
+        // ── 외부 연계용 (SpherePressSequencer) ───────────────────
+        /// <summary>현재 변형된 버텍스 배열의 복사본 반환 (구형 완료 직후 Sequencer에서 호출)</summary>
+        public Vector3[] GetCurrentVerticesCopy()
+        {
+            Vector3[] copy = new Vector3[snapshot.VertexCount];
+            System.Array.Copy(snapshot.currentVertices, copy, snapshot.VertexCount);
+
+            if (_showDebugLog)
+                Debug.Log($"[SpherifyDeformer] 버텍스 복사 완료 | 복사된 버텍스 수: {copy.Length}");
+
+            return copy;
+        }
+
+        /// <summary>현재 메시 Bounds 반환 (LateUpdate에서 RecalculateBounds 후 항상 최신 상태)</summary>
+        public Bounds GetCurrentBounds() => deformMesh.bounds;
 
         // ── 리소스 해제 ──────────────────────────────────────────
         void OnDestroy()

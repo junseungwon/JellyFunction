@@ -21,6 +21,9 @@ namespace PressSystem
         [SerializeField] bool _pressOnStart = false;
         [SerializeField] bool _logOnPressComplete = false;
 
+        [Header("Debug")]
+        [SerializeField] bool _showDebugLog = true;
+
         float _currentT = 0f;
         float _startT = 0f;
         float _targetT = 0f;
@@ -29,9 +32,26 @@ namespace PressSystem
 
         public float CurrentAmount => _currentT;
 
-        public void Press() => SetTarget(1f);
-        public void RevertToOriginal() => SetTarget(0f);
-        public void SetPressRatio(float ratio) => SetTarget(Mathf.Clamp01(ratio));
+        public void Press()
+        {
+            if (_showDebugLog)
+                Debug.Log($"[PressController] 프레스 시작 | 소요 시간: {_transitionDuration}s");
+            SetTarget(1f);
+        }
+
+        public void RevertToOriginal()
+        {
+            if (_showDebugLog)
+                Debug.Log("[PressController] 원본 복원 시작");
+            SetTarget(0f);
+        }
+
+        public void SetPressRatio(float ratio)
+        {
+            if (_showDebugLog)
+                Debug.Log($"[PressController] PressRatio 설정: {ratio:F2}");
+            SetTarget(Mathf.Clamp01(ratio));
+        }
 
         public void SnapToPress()
         {
@@ -39,6 +59,9 @@ namespace PressSystem
             _elapsedTime = _transitionDuration;
             _isTransitioning = false;
             _deformer.PressAmount = 1f;
+
+            if (_showDebugLog)
+                Debug.Log("[PressController] ✅ 즉시 프레스 완료 (Snap)");
         }
 
         public void SnapToOriginal()
@@ -47,6 +70,9 @@ namespace PressSystem
             _elapsedTime = _transitionDuration;
             _isTransitioning = false;
             _deformer.ForceRevert();
+
+            if (_showDebugLog)
+                Debug.Log("[PressController] ✅ 즉시 원본 복원 완료 (Snap)");
         }
 
         void SetTarget(float t)
@@ -76,10 +102,26 @@ namespace PressSystem
                 _isTransitioning = false;
 
                 if (Mathf.Approximately(_targetT, 1f))
+                {
+                    if (_showDebugLog)
+                        Debug.Log("[PressController] ✅ 프레스 완료");
                     onPressComplete?.Invoke();
+                }
                 else if (Mathf.Approximately(_targetT, 0f))
+                {
+                    if (_showDebugLog)
+                        Debug.Log("[PressController] ✅ 원본 복원 완료");
                     onRevertComplete?.Invoke();
+                }
             }
+        }
+
+        /// <summary>AutoStart 비활성화 — Sequencer가 Awake에서 호출해 흐름을 직접 제어</summary>
+        public void DisableAutoStart()
+        {
+            _pressOnStart = false;
+            if (_showDebugLog)
+                Debug.Log("[PressController] AutoStart 비활성화 (Sequencer 제어 모드)");
         }
 
         void Reset()

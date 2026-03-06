@@ -31,6 +31,8 @@ namespace PressSystem
             _origNative   = new NativeArray<Vector3>(snapshot.originalVertices,    Allocator.Persistent);
             _targetNative = new NativeArray<Vector3>(snapshot.pressTargetVertices,  Allocator.Persistent);
             _outputNative = new NativeArray<Vector3>(snapshot.VertexCount,         Allocator.Persistent);
+
+            Debug.Log($"[PressJobRunner] 생성 완료 | 버텍스 수: {snapshot.VertexCount}");
         }
 
         public void Run(PressMeshSnapshot snapshot, float t)
@@ -57,6 +59,8 @@ namespace PressSystem
             if (_origNative.IsCreated)   _origNative.Dispose();
             if (_targetNative.IsCreated) _targetNative.Dispose();
             if (_outputNative.IsCreated) _outputNative.Dispose();
+
+            Debug.Log("[PressJobRunner] ✅ Dispose 완료");
         }
     }
 }

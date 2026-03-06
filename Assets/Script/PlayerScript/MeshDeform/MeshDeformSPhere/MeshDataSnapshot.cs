@@ -29,12 +29,12 @@ namespace SpherifySystem
                 snapshot.currentVertices[i]     = source[i];
 
                 Vector3 dir = source[i] - center;
-                // dir이 zero벡터(중심점과 완전히 겹치는 버텍스) 예외 처리
                 snapshot.sphereTargetVertices[i] = dir == Vector3.zero
                     ? center
                     : center + dir.normalized * radius;
             }
 
+            Debug.Log($"[MeshDataSnapshot] Create 완료 | 버텍스: {len} | 반지름: {radius:F3} | 중심: {center}");
             return snapshot;
         }
     }
