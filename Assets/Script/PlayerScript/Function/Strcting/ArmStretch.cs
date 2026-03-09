@@ -55,6 +55,10 @@ public class ArmStretch : MonoBehaviour
     [Tooltip("켜면 튜브가 늘어나는 베지어 경로를 따라 손 모델도 함께 이동")]
     [SerializeField] private bool _moveHandAlongPath = true;
 
+    [Header("Grab Settings")]
+    [Tooltip("켜면 팔이 완전히 뻗었을 때 target 오브젝트를 잡아 끌어당김")]
+    [SerializeField] private bool _enableGrab = true;
+
     [Header("Debug")]
         [Tooltip("경로·제어점 디버그 라인 유지 시간(초)")]
     [SerializeField] private float _pathDrawDuration = 10f;
@@ -69,11 +73,12 @@ public class ArmStretch : MonoBehaviour
     [Tooltip("TryStretch 시 origin/targetPos/controlPoint/pathPoints 값 콘솔 출력")]
     [SerializeField] private bool _logPathValues = true;
     // 현재 팔 상태
-    private enum ArmState { Idle, Stretching }
+    private enum ArmState { Idle, Stretching, Grabbed }
     private ArmState _state = ArmState.Idle;
 
     private Vector3[] _currentPath;
     private float _clearMeshTimer = -1f;
+    private Transform _grabbedObject = null;
     private Coroutine _growMeshCoroutine = null;
     private bool _isGrowing = false;
     private Coroutine _shrinkMeshCoroutine = null;
@@ -221,6 +226,23 @@ public class ArmStretch : MonoBehaviour
             Debug.Log("ArmStretch: 경로 유효 (튜브 메시 생성)");
     }
 
+    private void TryGrab()
+    {
+        if (target == null) return;
+        _grabbedObject = target;
+        _state = ArmState.Grabbed;
+        if (_enableLog)
+            Debug.Log($"ArmStretch: [{target.name}] 잡음");
+    }
+
+    private void ReleaseGrab()
+    {
+        if (_grabbedObject == null) return;
+        if (_enableLog)
+            Debug.Log($"ArmStretch: [{_grabbedObject.name}] 놓음 (플레이어 도착)");
+        _grabbedObject = null;
+    }
+
     /// <summary>디버그: 위치에 XYZ 축 마커를 그립니다.</summary>
     private void DrawDebugPoint(Vector3 position, Color color, float size, float duration)
     {
@@ -294,6 +316,9 @@ public class ArmStretch : MonoBehaviour
         if (_enableLog)
             Debug.LogWarning("ArmStretch: 메시 전체 생성 완료 (경로 끝까지 도달)");
 
+        if (_enableGrab)
+            TryGrab();
+
         // 키를 뗀 상태로 생성이 끝났으면 이 시점에 수축/클리어 실행
         if (_retractPending)
         {
@@ -336,6 +361,10 @@ public class ArmStretch : MonoBehaviour
                 SetHandTransform(tip, (tip - tipPrev).normalized, true);
             }
 
+            // 잡은 오브젝트를 현재 팔 끝에 붙여서 이동
+            if (_grabbedObject != null && count >= 2)
+                _grabbedObject.position = slice[count - 1];
+
             // 진행도(0~1)에 따라 커브 값으로 딜레이를 조절 (역순 제거)
             float t = (float)(count - 1) / totalSteps;
             float curveMultiplier = _meshShrinkCurve != null ? _meshShrinkCurve.Evaluate(t) : 1f;
@@ -349,6 +378,7 @@ public class ArmStretch : MonoBehaviour
         _shrinkMeshCoroutine = null;
         if (_moveHandAlongPath && _handModel != null)
             SetHandTransform(armOrigin.position, Vector3.forward, false);
+        ReleaseGrab();
         if (_enableLog)
             Debug.Log("ArmStretch: 메시 역순 제거 완료");
     }

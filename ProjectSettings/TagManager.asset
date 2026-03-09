@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Hit
-  - 
+  - Eyes
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Eyes
+    uniqueID: 2942571875
+    locked: 0
+  - name: Cube
+    uniqueID: 1667273279
     locked: 0
