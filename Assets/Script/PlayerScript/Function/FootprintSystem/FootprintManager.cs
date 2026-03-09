@@ -4,7 +4,13 @@ using UnityEngine.Pool;
 
 public class FootprintManager : MonoBehaviour
 {
+    #region Singleton
+
     public static FootprintManager Instance { get; private set; }
+
+    #endregion
+
+    #region Inspector
 
     [Header("Surface Settings")]
     [SerializeField] private SurfaceFootprintData[] _surfaceDataList;
@@ -13,6 +19,10 @@ public class FootprintManager : MonoBehaviour
     [Header("Pool Settings")]
     [SerializeField] private int _defaultPoolSize = 20;
     [SerializeField] private int _maxPoolSize = 40;
+
+    #endregion
+
+    #region Private Fields
 
     // 지면 태그 → 풀 딕셔너리
     private Dictionary<string, ObjectPool<FootprintDecal>> _pools;
@@ -25,6 +35,10 @@ public class FootprintManager : MonoBehaviour
 
         InitializePools();
     }
+
+    #endregion
+
+    #region Pool Setup
 
     private void InitializePools()
     {
@@ -61,6 +75,10 @@ public class FootprintManager : MonoBehaviour
         );
     }
 
+    #endregion
+
+    #region Public API
+
     // FootprintDetector에서 호출
     public void SpawnFootprint(Vector3 position, Quaternion rotation, string surfaceTag)
     {
@@ -74,4 +92,6 @@ public class FootprintManager : MonoBehaviour
         decal.transform.SetPositionAndRotation(position, rotation);
         decal.Activate(data.lifetime, data.fadeOutDuration, d => pool.Release(d));
     }
+
+    #endregion
 }

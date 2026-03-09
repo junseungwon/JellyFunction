@@ -5,6 +5,8 @@ namespace SpherifySystem
     [RequireComponent(typeof(MeshFilter))]
     public class SpherifyDeformer : MonoBehaviour
     {
+        #region Inspector
+
         [Header("Sphere Settings")]
         [SerializeField] bool  autoCalcRadius = true;
         [SerializeField] float manualRadius   = 1f;
@@ -14,6 +16,10 @@ namespace SpherifySystem
 
         [Header("Debug")]
         [SerializeField] bool _showDebugLog = true;
+
+        #endregion
+
+        #region Private - State
 
         // ── 내부 상태 ────────────────────────────────────────────
         MeshFilter       meshFilter;
@@ -26,6 +32,10 @@ namespace SpherifySystem
 
         // 현재 반지름 (디버그/외부 참조용)
         public float CurrentRadius { get; private set; }
+
+        #endregion
+
+        #region Unity Lifecycle
 
         // ── 초기화 ───────────────────────────────────────────────
         void Awake()
@@ -45,6 +55,10 @@ namespace SpherifySystem
             if (_showDebugLog)
                 Debug.Log($"[SpherifyDeformer] 초기화 완료 | 버텍스 수: {snapshot.VertexCount} | 반지름: {CurrentRadius:F3} | JobSystem: {useJobSystem}");
         }
+
+        #endregion
+
+        #region Update - Deform
 
         // ── 변형 적용 ────────────────────────────────────────────
         void LateUpdate()
@@ -75,6 +89,10 @@ namespace SpherifySystem
                 );
             }
         }
+
+        #endregion
+
+        #region Public API
 
         // ── 강제 원본 복원 (외부 호출용) ─────────────────────────
         public void ForceRevert()
@@ -114,10 +132,16 @@ namespace SpherifySystem
         /// <summary>현재 메시 Bounds 반환 (LateUpdate에서 RecalculateBounds 후 항상 최신 상태)</summary>
         public Bounds GetCurrentBounds() => deformMesh.bounds;
 
+        #endregion
+
+        #region Cleanup
+
         // ── 리소스 해제 ──────────────────────────────────────────
         void OnDestroy()
         {
             jobRunner?.Dispose();
         }
+
+        #endregion
     }
 }

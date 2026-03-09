@@ -4,14 +4,29 @@ using UnityEngine;
 
 public class FootprintDecal : MonoBehaviour
 {
+    #region Inspector
+
     [SerializeField] private MeshRenderer _renderer;
+
+    #endregion
+
+    #region Private Fields
+
     private MaterialPropertyBlock _propBlock;
     private Coroutine _lifetimeCoroutine;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Awake()
     {
         _propBlock = new MaterialPropertyBlock();
     }
+
+    #endregion
+
+    #region Public API
 
     // 풀에서 꺼낼 때 호출
     public void Activate(float lifetime, float fadeOutDuration, Action<FootprintDecal> onRelease)
@@ -20,6 +35,10 @@ public class FootprintDecal : MonoBehaviour
             StopCoroutine(_lifetimeCoroutine);
         _lifetimeCoroutine = StartCoroutine(LifetimeRoutine(lifetime, fadeOutDuration, onRelease));
     }
+
+    #endregion
+
+    #region Private
 
     private IEnumerator LifetimeRoutine(float lifetime, float fadeOutDuration, Action<FootprintDecal> onRelease)
     {
@@ -45,4 +64,6 @@ public class FootprintDecal : MonoBehaviour
         _propBlock.SetFloat("_Alpha", alpha);
         _renderer.SetPropertyBlock(_propBlock);
     }
+
+    #endregion
 }

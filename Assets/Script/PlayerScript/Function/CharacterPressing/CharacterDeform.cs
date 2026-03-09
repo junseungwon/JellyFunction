@@ -17,6 +17,8 @@ namespace CharacterPressing
     /// </summary>
     public class CharacterDeform : MonoBehaviour
     {
+        #region Inspector
+
         [Header("대상 (Inspector에서 할당)")]
         [Tooltip("스케일을 변경할 핵심 Bone")]
         [SerializeField] Transform _coreBone = null;
@@ -64,6 +66,10 @@ namespace CharacterPressing
         [Tooltip("기즈모 선/구 크기")]
         [SerializeField] float _gizmoSize = 0.5f;
 
+        #endregion
+
+        #region Private Fields
+
         float _initialBoneScaleAxis;
         float _initialLocalPosAxis;
         Vector3 _initialLocalScaleBone;
@@ -83,6 +89,10 @@ namespace CharacterPressing
                 Apply(_deformAmount);
             }
         }
+
+        #endregion
+
+        #region Unity Lifecycle
 
         void Awake()
         {
@@ -145,6 +155,10 @@ namespace CharacterPressing
             }
         }
 
+        #endregion
+
+        #region Axis Helpers
+
         // ─── 축 유틸 ──────────────────────────────────────────────
 
         static float GetPositionAxis(Vector3 p, PressAxis axis)
@@ -174,6 +188,17 @@ namespace CharacterPressing
             if (axis == PressAxis.Z) return new Vector3(s.x, s.y, value);
             return new Vector3(s.x, value, s.z);
         }
+
+        static Vector3 GetAxisDirectionWorld(Transform t, PressAxis axis)
+        {
+            if (axis == PressAxis.X) return t.TransformDirection(Vector3.right);
+            if (axis == PressAxis.Z) return t.TransformDirection(Vector3.forward);
+            return t.TransformDirection(Vector3.up);
+        }
+
+        #endregion
+
+        #region Gizmos
 
         // ─── 기즈모 ───────────────────────────────────────────────
 
@@ -210,11 +235,6 @@ namespace CharacterPressing
             }
         }
 
-        static Vector3 GetAxisDirectionWorld(Transform t, PressAxis axis)
-        {
-            if (axis == PressAxis.X) return t.TransformDirection(Vector3.right);
-            if (axis == PressAxis.Z) return t.TransformDirection(Vector3.forward);
-            return t.TransformDirection(Vector3.up);
-        }
+        #endregion
     }
 }

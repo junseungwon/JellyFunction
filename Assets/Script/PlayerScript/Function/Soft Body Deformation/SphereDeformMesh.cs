@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshCollider))]
 public class SphereDeformMesh : MonoBehaviour
 {
+    #region Inspector - 변형 설정
+
     [Header("변형 설정")]
     public float deformRadius = 0.3f;
     public float maxDeformStrength = 0.1f;
@@ -19,6 +21,10 @@ public class SphereDeformMesh : MonoBehaviour
 
     public enum DeformBlendMode { Additive, Max }
 
+    #endregion
+
+    #region Inspector - 충돌 / Debug
+
     [Header("충돌 레이어")]
     [Tooltip("이 레이어에 있는 오브젝트와만 충돌 시 변형됩니다. 비어 있으면 모든 레이어에 반응합니다.")]
     public LayerMask collisionLayers = -1;
@@ -32,6 +38,10 @@ public class SphereDeformMesh : MonoBehaviour
     [SerializeField] float gizmoNormalLength = 0.5f;
     [SerializeField] bool gizmosOnlyWhenColliding = false;
     [SerializeField] float debugLogInterval = 0f;
+
+    #endregion
+
+    #region Private - Data
 
     struct ContactInfo
     {
@@ -53,6 +63,10 @@ public class SphereDeformMesh : MonoBehaviour
     float debugLogAccum = 0f;
 
     bool IsColliding => activeContacts.Count > 0;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     void Start()
     {
@@ -86,6 +100,10 @@ public class SphereDeformMesh : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
+    #region Collision
 
     void OnCollisionEnter(Collision collision)
     {
@@ -129,6 +147,10 @@ public class SphereDeformMesh : MonoBehaviour
         if (showDebugLog)
             Debug.Log($"[SphereDeformMesh] Exit | {collision.gameObject.name} | 활성 충돌 수:{activeContacts.Count}");
     }
+
+    #endregion
+
+    #region Deform Logic
 
     void UpdateStrengths()
     {
@@ -258,6 +280,10 @@ public class SphereDeformMesh : MonoBehaviour
         return ((1 << go.layer) & collisionLayers.value) != 0;
     }
 
+    #endregion
+
+    #region Gizmos
+
     void OnDrawGizmos()
     {
         if (!drawGizmos) return;
@@ -288,4 +314,16 @@ public class SphereDeformMesh : MonoBehaviour
 
         Gizmos.color = gizmoNormalColor;
     }
+
+    #endregion
+
+    #region Public API
+
+    // ─── 활성화 제어 API ─────────────────────────────────────────
+
+    public void EnableDeform()  => enabled = true;
+    public void DisableDeform() => enabled = false;
+    public void ToggleDeform()  => enabled = !enabled;
+
+    #endregion
 }

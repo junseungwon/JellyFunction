@@ -4,11 +4,17 @@ namespace SpherifySystem
 {
     public class MeshDataSnapshot
     {
+        #region Data
+
         public Vector3[] originalVertices;
         public Vector3[] currentVertices;
         public Vector3[] sphereTargetVertices;
 
         public int VertexCount => originalVertices.Length;
+
+        #endregion
+
+        #region Factory
 
         public static MeshDataSnapshot Create(Mesh mesh, float radius)
         {
@@ -37,5 +43,7 @@ namespace SpherifySystem
             Debug.Log($"[MeshDataSnapshot] Create 완료 | 버텍스: {len} | 반지름: {radius:F3} | 중심: {center}");
             return snapshot;
         }
+
+        #endregion
     }
 }

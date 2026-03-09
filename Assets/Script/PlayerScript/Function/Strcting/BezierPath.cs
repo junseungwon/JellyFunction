@@ -2,6 +2,8 @@ using UnityEngine;
 
 public static class BezierPath
 {
+    #region Point & Tangent
+
     // 2차 베지어 곡선 위치 계산
     public static Vector3 GetPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
@@ -15,6 +17,10 @@ public static class BezierPath
         float u = 1f - t;
         return (2f * u * (p1 - p0) + 2f * t * (p2 - p1)).normalized;
     }
+
+    #endregion
+
+    #region Control Point
 
     // 제어점 자동 계산 (중간점 + 위 방향 오프셋, 각도로 기울임)
     /// <param name="angleDegrees">제어점 오프셋 각도(도). 0=위쪽, 양수=타겟 방향으로 기울임, 음수=원점 방향</param>
@@ -55,6 +61,10 @@ public static class BezierPath
         return result;
     }
 
+    #endregion
+
+    #region Sampling
+
     // 베지어 경로를 samples개 포인트로 샘플링
     public static Vector3[] SamplePath(Vector3 p0, Vector3 p1, Vector3 p2, int samples, bool logValues = false)
     {
@@ -81,6 +91,10 @@ public static class BezierPath
         }
         return points;
     }
+
+    #endregion
+
+    #region Debug
 
     /// <summary>디버그용: 베지어 곡선과 제어점을 씬 뷰에 그립니다.</summary>
     /// <param name="duration">라인 유지 시간(초). 0이면 1프레임.</param>
@@ -117,4 +131,6 @@ public static class BezierPath
         Debug.DrawLine(p1 - Vector3.right * s, p1 + Vector3.right * s, Color.yellow, duration);
         Debug.DrawLine(p2 - Vector3.right * s, p2 + Vector3.right * s, Color.white, duration);
     }
+
+    #endregion
 }

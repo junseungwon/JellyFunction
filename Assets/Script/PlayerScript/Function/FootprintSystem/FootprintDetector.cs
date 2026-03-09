@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class FootprintDetector : MonoBehaviour
 {
+    #region Inspector - Bones & Settings
+
     [Header("Foot Bones")]
     [SerializeField] private Transform _leftFootBone;
     [SerializeField] private Transform _rightFootBone;
@@ -26,12 +28,20 @@ public class FootprintDetector : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody _rigidbody;
 
+    #endregion
+
+    #region Private Fields
+
     private bool _leftPlanted;
     private bool _rightPlanted;
 
     // Animator Curve 파라미터 이름 (해시로 캐싱)
     private static readonly int LeftFootHash = Animator.StringToHash("LeftFootprint");
     private static readonly int RightFootHash = Animator.StringToHash("RightFootprint");
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Update()
     {
@@ -46,6 +56,10 @@ public class FootprintDetector : MonoBehaviour
         DetectFoot(LeftFootHash, _leftFootBone, ref _leftPlanted, isLeft: true);
         DetectFoot(RightFootHash, _rightFootBone, ref _rightPlanted, isLeft: false);
     }
+
+    #endregion
+
+    #region Private - Detection
 
     private void DetectFoot(int curveHash, Transform footBone, ref bool isPlanted, bool isLeft)
     {
@@ -113,7 +127,21 @@ public class FootprintDetector : MonoBehaviour
         FootprintManager.Instance.SpawnFootprint(position, rotation, surfaceTag);
     }
 
+    #endregion
+
+    #region Public API
+
+    // ─── 활성화 제어 API ─────────────────────────────────────────
+
+    public void EnableDetection()  => enabled = true;
+    public void DisableDetection() => enabled = false;
+    public void ToggleDetection()  => enabled = !enabled;
+
+    #endregion
+
 #if UNITY_EDITOR
+    #region Editor - Gizmos
+
     private void OnDrawGizmosSelected()
     {
         if (_leftFootBone != null)
@@ -133,5 +161,7 @@ public class FootprintDetector : MonoBehaviour
             );
         }
     }
+
+    #endregion
 #endif
 }

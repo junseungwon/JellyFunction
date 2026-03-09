@@ -9,7 +9,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class TubeMeshBuilder : MonoBehaviour
 {
-    // --- 튜브 형태 설정 ---
+    #region Inspector - Tube Settings
+
     [Header("Tube Settings")]
     [Tooltip("튜브 단면(링) 하나당 정점 개수. 클수록 원에 가깝게 됨")]
     [SerializeField] private int ringVertexCount = 8;
@@ -30,6 +31,10 @@ public class TubeMeshBuilder : MonoBehaviour
     [Tooltip("켜면 UpdateMesh/ClearMesh 등 동작을 콘솔에 출력")]
     [SerializeField] private bool _enableLog = false;
 
+    #endregion
+
+    #region Private - Mesh Data
+
     // --- 메시 데이터 (런타임) ---
     private Mesh _mesh;
     private List<Vector3> _vertices  = new List<Vector3>();
@@ -38,6 +43,10 @@ public class TubeMeshBuilder : MonoBehaviour
     private int           _lastSegmentCount = -1;
     private int           _lastRingVertexCount = -1;
 
+    #endregion
+
+    #region Unity Lifecycle
+
     private void Awake()
     {
         _mesh = new Mesh { name = "ArmTubeMesh" };
@@ -45,6 +54,10 @@ public class TubeMeshBuilder : MonoBehaviour
         if (_enableLog)
             Debug.Log("[TubeMeshBuilder] Awake: Mesh 생성 및 MeshFilter 할당");
     }
+
+    #endregion
+
+    #region Public API
 
     /// <summary>
     /// 경로 포인트 배열을 받아 튜브 메시를 갱신합니다.
@@ -111,6 +124,10 @@ public class TubeMeshBuilder : MonoBehaviour
         if (_enableLog)
             Debug.Log("[TubeMeshBuilder] ClearMesh: 메시 초기화, 다음 UpdateMesh 시 삼각형 재생성");
     }
+
+    #endregion
+
+    #region Private - Build Mesh
 
     /// <summary>
     /// 경로의 각 점을 중심으로 원형 링의 정점을 생성합니다.
@@ -214,4 +231,6 @@ public class TubeMeshBuilder : MonoBehaviour
         if (_enableLog)
             Debug.Log($"[TubeMeshBuilder] ApplyMesh: vertices={_vertices.Count} triangles 적용={_trianglesBuilt}");
     }
+
+    #endregion
 }

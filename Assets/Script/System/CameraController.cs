@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class CameraController : MonoBehaviour
 {
+    #region Inspector
+
     [Header("Target")]
     /// <summary>추적할 타깃 Transform (예: 플레이어)</summary>
     [SerializeField] private Transform _targetTransform;
@@ -26,8 +28,16 @@ public class CameraController : MonoBehaviour
     [Header("Follow")]
     [SerializeField] private float _followSmoothSpeed = 10f;
 
+    #endregion
+
+    #region Private Fields
+
     private float _currentYAngle = 0f;
     private float _targetDistance = 0f;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Start()
     {
@@ -45,6 +55,10 @@ public class CameraController : MonoBehaviour
         HandleZoom();
         UpdateCameraPosition();
     }
+
+    #endregion
+
+    #region Private - Input & Follow
 
     /// <summary>마우스 좌클릭 드래그로 수평 회전을 처리합니다.</summary>
     private void HandleRotation()
@@ -81,4 +95,6 @@ public class CameraController : MonoBehaviour
 
         transform.LookAt(_targetTransform.position + _targetOffset);
     }
+
+    #endregion
 }

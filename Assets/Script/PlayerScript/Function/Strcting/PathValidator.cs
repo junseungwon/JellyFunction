@@ -2,6 +2,8 @@ using UnityEngine;
 
 public static class PathValidator
 {
+    #region Path Validation
+
     // Linecast 기반 경로 검증
     // 추후 SphereCast로 교체 시 CheckSegment 내부만 수정
     public static bool IsPathClear(Vector3[] pathPoints, LayerMask obstacleLayer)
@@ -25,6 +27,10 @@ public static class PathValidator
         return -1;
     }
 
+    #endregion
+
+    #region Private
+
     // 개별 구간 검사 (Linecast → 추후 SphereCast 교체 포인트)
     private static bool CheckSegment(Vector3 from, Vector3 to, LayerMask obstacleLayer)
     {
@@ -36,6 +42,10 @@ public static class PathValidator
     {
         return Physics.Linecast(from, to, out hit, obstacleLayer);
     }
+
+    #endregion
+
+    #region Debug
 
     // 에디터/플레이 디버그용 경로 시각화 (지속 시간 지정 가능)
     public static void DrawDebugPath(Vector3[] pathPoints, LayerMask obstacleLayer, float duration = 2f)
@@ -71,4 +81,6 @@ public static class PathValidator
             }
         }
     }
+
+    #endregion
 }

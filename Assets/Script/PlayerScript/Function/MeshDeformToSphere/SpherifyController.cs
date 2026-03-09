@@ -5,6 +5,8 @@ namespace SpherifySystem
 {
     public class SpherifyController : MonoBehaviour
     {
+        #region Inspector
+
         [Header("References")]
         [SerializeField] SpherifyDeformer deformer;
 
@@ -24,6 +26,10 @@ namespace SpherifySystem
         [Header("Debug")]
         [SerializeField] bool _showDebugLog = true;
 
+        #endregion
+
+        #region Private - State
+
         // ── 내부 상태 ────────────────────────────────────────────
         float currentT    = 0f;
         float startT      = 0f;
@@ -33,6 +39,10 @@ namespace SpherifySystem
 
         // 현재 SpherifyAmount 외부 참조용
         public float CurrentAmount => currentT;
+
+        #endregion
+
+        #region Public API
 
         // ── 공개 API ─────────────────────────────────────────────
 
@@ -83,6 +93,10 @@ namespace SpherifySystem
             if (_showDebugLog)
                 Debug.Log("[SpherifyController] ✅ 즉시 원본 복원 완료 (Snap)");
         }
+
+        #endregion
+
+        #region Private - Transition
 
         // ── 내부 전환 처리 ───────────────────────────────────────
         void SetTarget(float t)
@@ -135,6 +149,10 @@ namespace SpherifySystem
                 Debug.Log("[SpherifyController] AutoStart 비활성화 (Sequencer 제어 모드)");
         }
 
+        #endregion
+
+        #region Unity Lifecycle
+
         // ── Inspector 자동 연결 ──────────────────────────────────
         void Reset()
         {
@@ -149,5 +167,7 @@ namespace SpherifySystem
             if (transformToSphereOnStart)
                 TransformToSphere();
         }
+
+        #endregion
     }
 }

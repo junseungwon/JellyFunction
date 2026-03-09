@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class SphereDeform : MonoBehaviour
 {
+    #region Inspector - 변형 설정
+
     [Header("변형 설정")]
     public float deformRadius = 0.3f;
     public float maxDeformStrength = 0.1f;
@@ -33,6 +35,10 @@ public class SphereDeform : MonoBehaviour
     [SerializeField] bool gizmosOnlyWhenColliding = false;
     [SerializeField] float debugLogInterval = 0f;
 
+    #endregion
+
+    #region Private - Data
+
     // 개별 충돌 데이터
     struct ContactInfo
     {
@@ -58,6 +64,10 @@ public class SphereDeform : MonoBehaviour
     float debugLogAccum = 0f;
 
     bool IsColliding => activeContacts.Count > 0;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     void Start()
     {
@@ -90,6 +100,10 @@ public class SphereDeform : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
+    #region Collision
 
     void OnCollisionEnter(Collision collision)
     {
@@ -133,6 +147,10 @@ public class SphereDeform : MonoBehaviour
         if (showDebugLog)
             Debug.Log($"[SphereDeform] Exit | {collision.gameObject.name} | 활성 충돌 수:{activeContacts.Count}");
     }
+
+    #endregion
+
+    #region Deform Logic
 
     // 각 ContactInfo의 currentStrength를 targetStrength 방향으로 Lerp
     void UpdateStrengths()
@@ -262,6 +280,10 @@ public class SphereDeform : MonoBehaviour
         return ((1 << go.layer) & collisionLayers.value) != 0;
     }
 
+    #endregion
+
+    #region Gizmos
+
     void OnDrawGizmos()
     {
         if (!drawGizmos) return;
@@ -302,4 +324,16 @@ public class SphereDeform : MonoBehaviour
             Gizmos.DrawWireSphere(center, sphereCollider.radius * t.lossyScale.x);
         }
     }
+
+    #endregion
+
+    #region Public API
+
+    // ─── 활성화 제어 API ─────────────────────────────────────────
+
+    public void EnableDeform()  => enabled = true;
+    public void DisableDeform() => enabled = false;
+    public void ToggleDeform()  => enabled = !enabled;
+
+    #endregion
 }

@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class CharacterBounceController : MonoBehaviour
 {
+    #region Types
+
     public enum BounceState
     {
         Default,
         Excited
     }
+
+    #endregion
+
+    #region Inspector
 
     [Header("렌더러 설정")]
     [SerializeField] private Renderer targetRenderer;
@@ -18,11 +24,23 @@ public class CharacterBounceController : MonoBehaviour
     [SerializeField] private float defaultIntensity = 0.1f;
     [SerializeField] private float excitedIntensity = 0.2f;
 
+    [Header("Intensity 증감 설정")]
+    [Tooltip("IncreaseIntensity / DecreaseIntensity 한 번 호출 시 변화량")]
+    [SerializeField] private float intensityStep = 0.05f;
+
     [Header("현재 상태 (읽기 전용)")]
     [SerializeField, HideInInspector] private BounceState currentState = BounceState.Default;
 
+    #endregion
+
+    #region Private Fields
+
     private float _wpoIntensity;
     private MaterialPropertyBlock _propertyBlock;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Awake()
     {
@@ -33,6 +51,10 @@ public class CharacterBounceController : MonoBehaviour
 
         SetDefaultState();
     }
+
+    #endregion
+
+    #region Public API
 
     public void SetDefaultState()
     {
@@ -57,6 +79,9 @@ public class CharacterBounceController : MonoBehaviour
         targetRenderer.SetPropertyBlock(_propertyBlock);
     }
 
+    public void IncreaseIntensity() => WPOIntensity = Mathf.Clamp(WPOIntensity + intensityStep, 0f, 1f);
+    public void DecreaseIntensity() => WPOIntensity = Mathf.Clamp(WPOIntensity - intensityStep, 0f, 1f);
+
     public BounceState CurrentState => currentState;
 
     public float WPOIntensity
@@ -69,7 +94,11 @@ public class CharacterBounceController : MonoBehaviour
         }
     }
 
+    #endregion
+
 #if UNITY_EDITOR
+    #region Editor
+
     private void OnValidate()
     {
         if (_propertyBlock == null)
@@ -78,5 +107,7 @@ public class CharacterBounceController : MonoBehaviour
         if (targetRenderer != null)
             ApplyWPOIntensity();
     }
+
+    #endregion
 #endif
 }

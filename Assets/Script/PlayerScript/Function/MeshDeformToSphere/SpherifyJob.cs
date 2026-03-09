@@ -5,6 +5,8 @@ using Unity.Collections;
 
 namespace SpherifySystem
 {
+    #region Job
+
     // ── Job 구조체 ────────────────────────────────────────────────
     [BurstCompile]
     public struct SpherifyJob : IJobParallelFor
@@ -19,6 +21,10 @@ namespace SpherifySystem
             outputVertices[i] = Vector3.Lerp(originalVertices[i], sphereTargets[i], t);
         }
     }
+
+    #endregion
+
+    #region Job Runner
 
     // ── NativeArray 캐싱 래퍼 ────────────────────────────────────
     public class SpherifyJobRunner : System.IDisposable
@@ -66,4 +72,6 @@ namespace SpherifySystem
             Debug.Log("[SpherifyJobRunner] ✅ Dispose 완료");
         }
     }
+
+    #endregion
 }

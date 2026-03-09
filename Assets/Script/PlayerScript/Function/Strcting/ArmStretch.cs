@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ArmStretch : MonoBehaviour
 {
+    #region Inspector - References & Bezier
+
     [Header("References")]
     [Tooltip("팔 시작점(어깨) 위치 Transform")]
     [SerializeField] private Transform  armOrigin;
@@ -72,6 +74,11 @@ public class ArmStretch : MonoBehaviour
     [SerializeField] private bool _enableLog = true;
     [Tooltip("TryStretch 시 origin/targetPos/controlPoint/pathPoints 값 콘솔 출력")]
     [SerializeField] private bool _logPathValues = true;
+
+    #endregion
+
+    #region Private - State
+
     // 현재 팔 상태
     private enum ArmState { Idle, Stretching, Grabbed }
     private ArmState _state = ArmState.Idle;
@@ -86,6 +93,10 @@ public class ArmStretch : MonoBehaviour
     /// <summary>키를 뗐을 때 성장 중이면 true. 성장 완료 후 한 번만 수축/클리어 실행.</summary>
     private bool _retractPending = false;
 
+    #endregion
+
+    #region Private - Helpers
+
     private void SetHandTransform(Vector3 position, Vector3 forward, bool active)
     {
         if (_handModel == null) return;
@@ -94,6 +105,10 @@ public class ArmStretch : MonoBehaviour
         if (forward != Vector3.zero)
             _handModel.rotation = Quaternion.LookRotation(forward);
     }
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Update()
     {
@@ -137,6 +152,10 @@ public class ArmStretch : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
+    #region Stretch Logic
 
     private void TryStretch()
     {
@@ -243,6 +262,10 @@ public class ArmStretch : MonoBehaviour
         _grabbedObject = null;
     }
 
+    #endregion
+
+    #region Debug Helpers
+
     /// <summary>디버그: 위치에 XYZ 축 마커를 그립니다.</summary>
     private void DrawDebugPoint(Vector3 position, Color color, float size, float duration)
     {
@@ -270,6 +293,10 @@ public class ArmStretch : MonoBehaviour
         }
         Debug.Log(msg);
     }
+
+    #endregion
+
+    #region Coroutines - Grow / Shrink
 
     /// <summary>
     /// 경로를 2점 → 3점 → … → 전체 로 늘려가며 메시를 구간마다 _meshGrowInterval * 커브값 간격으로 갱신합니다.
@@ -383,6 +410,10 @@ public class ArmStretch : MonoBehaviour
             Debug.Log("ArmStretch: 메시 역순 제거 완료");
     }
 
+    #endregion
+
+    #region Update & Retract
+
     private void UpdateStretch()
     {
         if (target == null) return;
@@ -460,4 +491,6 @@ public class ArmStretch : MonoBehaviour
                 Debug.Log($"ArmStretch: 팔 수축 (메시 {_meshClearDelay}초 후 역순 제거)");
         }
     }
+
+    #endregion
 }

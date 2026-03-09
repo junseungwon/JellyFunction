@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    #region Inspector
+
     [Header("Movement Settings")]
     /// <summary>걷기 속도 (초당 유닛)</summary>
     [SerializeField] private float _walkSpeed = 4f;
@@ -17,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     /// <summary>방향 기준이 되는 카메라 Transform</summary>
     [SerializeField] private Transform _cameraTransform;
+
+    #endregion
+
+    #region Private Fields
 
     private Rigidbody _rb = null;
     [SerializeField] private Animator _anim = null;
@@ -34,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
         // NOTE: Y축(중력)은 Rigidbody가 처리. 넘어짐 방지.
         _rb.freezeRotation = true;
     }
+
+    #endregion
+
+    #region Update - Movement
 
     private void FixedUpdate()
     {
@@ -76,4 +86,6 @@ public class PlayerMovement : MonoBehaviour
             _anim.SetFloat(ANIM_SPEED, animSpeed, 0.1f, Time.fixedDeltaTime);
         }
     }
+
+    #endregion
 }

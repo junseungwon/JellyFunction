@@ -9,6 +9,8 @@ namespace CharacterPressing
     /// </summary>
     public class CharacterPressController : MonoBehaviour
     {
+        #region Inspector
+
         [Header("참조")]
         [Tooltip("변형을 담당하는 CharacterDeform 컴포넌트")]
         [SerializeField] CharacterDeform _deformer = null;
@@ -39,6 +41,10 @@ namespace CharacterPressing
         [Tooltip("켜면 압축·팽창 시작/완료 시 콘솔에 로그 출력")]
         [SerializeField] bool _showDebugLog = false;
 
+        #endregion
+
+        #region Private - State
+
         enum TransitionMode { None, Pressing, Reverting }
 
         TransitionMode _mode = TransitionMode.None;
@@ -48,6 +54,10 @@ namespace CharacterPressing
 
         /// <summary>현재 DeformAmount (0~1)</summary>
         public float CurrentAmount => _deformer != null ? _deformer.DeformAmount : 0f;
+
+        #endregion
+
+        #region Public API
 
         // ─── 공개 메서드 ─────────────────────────────────────────
 
@@ -96,6 +106,10 @@ namespace CharacterPressing
             if (_showDebugLog)
                 Debug.Log("[CharacterPressController] SnapToOriginal (즉시 복원)");
         }
+
+        #endregion
+
+        #region Private - Transition
 
         // ─── 내부 로직 ───────────────────────────────────────────
 
@@ -152,5 +166,7 @@ namespace CharacterPressing
         {
             _deformer = GetComponent<CharacterDeform>();
         }
+
+        #endregion
     }
 }

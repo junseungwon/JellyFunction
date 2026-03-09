@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    #region Inspector
+
     [Header("카메라 설정")]
     [SerializeField] private Camera camera1;
     [SerializeField] private Camera camera2;
@@ -10,7 +12,15 @@ public class CameraManager : MonoBehaviour
     [Header("기본 활성 카메라 (0=1번, 1=2번, 2=3번)")]
     [SerializeField] private int defaultActiveIndex = 0;
 
+    #endregion
+
+    #region Private Fields
+
     private Camera[] _cameras;
+
+    #endregion
+
+    #region Unity Lifecycle
 
     private void Awake()
     {
@@ -36,6 +46,10 @@ public class CameraManager : MonoBehaviour
             SetActiveCamera(2);
     }
 
+    #endregion
+
+    #region Public API
+
     public void SetActiveCamera(int index)
     {
         if (index < 0 || index >= _cameras.Length) return;
@@ -50,4 +64,6 @@ public class CameraManager : MonoBehaviour
     public void SetActiveCamera1() => SetActiveCamera(0);
     public void SetActiveCamera2() => SetActiveCamera(1);
     public void SetActiveCamera3() => SetActiveCamera(2);
+
+    #endregion
 }
