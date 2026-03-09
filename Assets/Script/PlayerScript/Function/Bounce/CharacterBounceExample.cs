@@ -4,8 +4,8 @@ public class CharacterBounceExample : MonoBehaviour
 {
     #region Inspector
 
-    [SerializeField] private CharacterBounceController bounceController;
-    [SerializeField, Range(0f, 0.2f)] private float wpoIntensity = 0.1f;
+    [SerializeField] private CharacterBounceController _bounceController = null;
+    [SerializeField, Range(0f, 0.2f)] private float _wpoIntensity = 0.1f;
 
     #endregion
 
@@ -19,16 +19,15 @@ public class CharacterBounceExample : MonoBehaviour
 
     private void Start()
     {
-        _prevIntensity = wpoIntensity;
-        //bounceController.SetExcitedState();
+        _prevIntensity = _wpoIntensity;
     }
 
     private void Update()
     {
-        if (_prevIntensity == wpoIntensity) return;
+        if (_prevIntensity == _wpoIntensity) return;
 
-        bounceController.WPOIntensity = wpoIntensity;
-        _prevIntensity = wpoIntensity;
+        _bounceController.WPOIntensity = _wpoIntensity;
+        _prevIntensity = _wpoIntensity;
     }
 
     #endregion

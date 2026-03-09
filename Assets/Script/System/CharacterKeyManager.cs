@@ -42,36 +42,71 @@ namespace CharacterPressing
 
     /// <summary>
     /// 키 입력을 전담 관리하는 매니저.
-    /// 각 시스템의 참조를 연결하면 해당 키 설정에 따라 자동으로 바인딩됩니다.
+    /// 각 Feature 컴포넌트의 실행 메서드를 직접 바인딩합니다.
+    /// Controller가 아닌 Feature 컴포넌트를 참조합니다.
     /// 참조가 null인 시스템은 바인딩을 건너뜁니다.
     /// 추가 기능은 [추가 바인딩 목록]에 항목을 넣어 연결합니다.
     /// </summary>
     public class CharacterKeyManager : MonoBehaviour
     {
-        #region Inspector - PressController
+        #region Inspector - ChangeModel
 
-        [Header("PressController 참조")]
-        [Tooltip("같은 오브젝트에 있으면 자동 할당됩니다.")]
-        [SerializeField] CharacterPressController _pressController = null;
+        [Header("ChangeModel (캐릭터↔볼 전환)")]
+        [Tooltip("ChangeModel 컴포넌트. 할당 시 Press/Revert 키가 ChangeModel을 통해 라우팅됩니다.")]
+        [SerializeField] ChangeModel _changeModel = null;
 
-        [Header("PressController 키 설정")]
-        [Tooltip("Press() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [Header("ChangeModel 키 설정")]
+        [Tooltip("캐릭터↔볼 전환 토글 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _changeModelToggleKey = KeyCode.T;
+
+        #endregion
+
+        #region Inspector - CharacterDeform (캐릭터 Press)
+
+        [Header("캐릭터 Press (CharacterDeform)")]
+        [Tooltip("캐릭터 압축/팽창 변형. 같은 오브젝트에 있으면 Reset 시 자동 할당됩니다.")]
+        [SerializeField] CharacterDeform _characterDeform = null;
+
+        [Header("캐릭터 Press 키 설정")]
+        [Tooltip("캐릭터 Press() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
         [SerializeField] KeyCode _pressKey = KeyCode.Space;
 
-        [Tooltip("Revert() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [Tooltip("캐릭터 Revert() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
         [SerializeField] KeyCode _revertKey = KeyCode.R;
 
-        [Tooltip("SnapToPress() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [Tooltip("캐릭터 SnapToPress() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
         [SerializeField] KeyCode _snapPressKey = KeyCode.None;
 
-        [Tooltip("SnapToOriginal() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [Tooltip("캐릭터 SnapToOriginal() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
         [SerializeField] KeyCode _snapOriginalKey = KeyCode.None;
+
+        #endregion
+
+        #region Inspector - Ball Deform (볼 Press)
+
+        [Header("볼 Press (CharacterDeform)")]
+        [Tooltip("볼(Ball) 압축/팽창 변형. 다른 오브젝트에 붙어 있으면 여기서 드래그로 할당합니다.")]
+        [SerializeField] CharacterDeform _ballDeform = null;
+
+        [Header("볼 Press 키 설정")]
+        [Tooltip("볼 Press() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _ballPressKey = KeyCode.None;
+
+        [Tooltip("볼 Revert() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _ballRevertKey = KeyCode.None;
+
+        [Tooltip("볼 SnapToPress() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _ballSnapPressKey = KeyCode.None;
+
+        [Tooltip("볼 SnapToOriginal() 호출 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _ballSnapOriginalKey = KeyCode.None;
 
         #endregion
 
         #region Inspector - FootSystem
 
         [Header("FootSystem 참조")]
+        [Tooltip("발자국 감지 기능. 같은 오브젝트에 있으면 Reset 시 자동 할당됩니다.")]
         [SerializeField] FootprintDetector _footprintDetector = null;
 
         [Header("FootSystem 키 설정")]
@@ -80,12 +115,13 @@ namespace CharacterPressing
 
         #endregion
 
-        #region Inspector - MeshDeformToSphere
+        #region Inspector - SpherifyDeformer
 
-        [Header("MeshDeformToSphere 참조")]
-        [SerializeField] SpherifyController _spherifyController = null;
+        [Header("SpherifyDeformer 참조")]
+        [Tooltip("메시 구형 변형 기능. 같은 오브젝트에 있으면 Reset 시 자동 할당됩니다.")]
+        [SerializeField] SpherifyDeformer _spherifyDeformer = null;
 
-        [Header("MeshDeformToSphere 키 설정")]
+        [Header("SpherifyDeformer 키 설정")]
         [Tooltip("구체로 변형 키 (KeyCode.None이면 바인딩하지 않음)")]
         [SerializeField] KeyCode _spherifyKey = KeyCode.G;
 
@@ -97,8 +133,8 @@ namespace CharacterPressing
         #region Inspector - SoftBody
 
         [Header("SoftBody 참조")]
+        [Tooltip("SphereDeform 소프트 바디 변형. 같은 오브젝트에 있으면 Reset 시 자동 할당됩니다.")]
         [SerializeField] SphereDeform _sphereDeform = null;
-        [SerializeField] SphereDeformMesh _sphereDeformMesh = null;
 
         [Header("SoftBody 키 설정")]
         [Tooltip("SphereDeform 토글 키 (KeyCode.None이면 바인딩하지 않음)")]
@@ -111,7 +147,8 @@ namespace CharacterPressing
 
         #region Inspector - Bounce
 
-        [Header("Bounce 참조")]
+        [Header("CharacterBounce 참조")]
+        [Tooltip("바운스 WPO Intensity 컨트롤러. 같은 오브젝트에 있으면 Reset 시 자동 할당됩니다.")]
         [SerializeField] CharacterBounceController _bounceController = null;
 
         [Header("Bounce 키 설정")]
@@ -147,18 +184,18 @@ namespace CharacterPressing
 
         void Reset()
         {
-            _pressController    = GetComponent<CharacterPressController>();
+            _changeModel        = GetComponent<ChangeModel>();
+            _characterDeform    = GetComponent<CharacterDeform>();
             _footprintDetector  = GetComponent<FootprintDetector>();
-            _spherifyController = GetComponent<SpherifyController>();
+            _spherifyDeformer   = GetComponent<SpherifyDeformer>();
             _sphereDeform       = GetComponent<SphereDeform>();
-            _sphereDeformMesh   = GetComponent<SphereDeformMesh>();
             _bounceController   = GetComponent<CharacterBounceController>();
         }
 
         void Awake()
         {
-            if (_pressController == null)
-                _pressController = GetComponent<CharacterPressController>();
+            if (_characterDeform == null)
+                _characterDeform = GetComponent<CharacterDeform>();
 
             RegisterAutoBindings();
         }
@@ -167,21 +204,47 @@ namespace CharacterPressing
 
         #region 자동 바인딩
 
-        /// <summary>각 시스템 키들을 코드로 자동 바인딩합니다. 참조가 null인 시스템은 건너뜁니다.</summary>
+        /// <summary>각 Feature 컴포넌트의 실행 메서드를 키에 자동 바인딩합니다. 참조가 null인 시스템은 건너뜁니다.</summary>
         void RegisterAutoBindings()
         {
             _autoBindings.Clear();
 
-            // PressController
-            if (_pressController != null)
+            // ChangeModel 모드: Toggle 키 + Press/Revert를 ChangeModel로 라우팅
+            if (_changeModel != null)
             {
-                TryAddAutoBinding("Press",          _pressKey,        KeyTrigger.Down, _pressController.Press);
-                TryAddAutoBinding("Revert",         _revertKey,       KeyTrigger.Down, _pressController.Revert);
-                TryAddAutoBinding("SnapToPress",    _snapPressKey,    KeyTrigger.Down, _pressController.SnapToPress);
-                TryAddAutoBinding("SnapToOriginal", _snapOriginalKey, KeyTrigger.Down, _pressController.SnapToOriginal);
+                TryAddAutoBinding("ChangeModelToggle",   _changeModelToggleKey, KeyTrigger.Down, _changeModel.Toggle);
+                TryAddAutoBinding("Press",               _pressKey,             KeyTrigger.Down, _changeModel.PressActive);
+                TryAddAutoBinding("Revert",              _revertKey,            KeyTrigger.Down, _changeModel.RevertActive);
+                TryAddAutoBinding("SnapToPress",         _snapPressKey,         KeyTrigger.Down, _changeModel.SnapToPressActive);
+                TryAddAutoBinding("SnapToOriginal",      _snapOriginalKey,      KeyTrigger.Down, _changeModel.SnapToOriginalActive);
+
+                if (_showDebugLog)
+                    Debug.Log("[CharacterKeyManager] ChangeModel 모드 활성 — Press/Revert 키가 ChangeModel로 라우팅됩니다.");
             }
-            else if (_showDebugLog)
-                Debug.LogWarning("[CharacterKeyManager] PressController 참조 없음 — 바인딩 건너뜀");
+            else
+            {
+                // ChangeModel 없을 때: 캐릭터 Press 직접 바인딩
+                if (_characterDeform != null)
+                {
+                    TryAddAutoBinding("CharPress",          _pressKey,        KeyTrigger.Down, _characterDeform.Press);
+                    TryAddAutoBinding("CharRevert",         _revertKey,       KeyTrigger.Down, _characterDeform.Revert);
+                    TryAddAutoBinding("CharSnapToPress",    _snapPressKey,    KeyTrigger.Down, _characterDeform.SnapToPress);
+                    TryAddAutoBinding("CharSnapToOriginal", _snapOriginalKey, KeyTrigger.Down, _characterDeform.SnapToOriginal);
+                }
+                else if (_showDebugLog)
+                    Debug.LogWarning("[CharacterKeyManager] CharacterDeform(캐릭터) 참조 없음 — 바인딩 건너뜀");
+
+                // 볼 Press 직접 바인딩
+                if (_ballDeform != null)
+                {
+                    TryAddAutoBinding("BallPress",          _ballPressKey,        KeyTrigger.Down, _ballDeform.Press);
+                    TryAddAutoBinding("BallRevert",         _ballRevertKey,       KeyTrigger.Down, _ballDeform.Revert);
+                    TryAddAutoBinding("BallSnapToPress",    _ballSnapPressKey,    KeyTrigger.Down, _ballDeform.SnapToPress);
+                    TryAddAutoBinding("BallSnapToOriginal", _ballSnapOriginalKey, KeyTrigger.Down, _ballDeform.SnapToOriginal);
+                }
+                else if (_showDebugLog)
+                    Debug.LogWarning("[CharacterKeyManager] CharacterDeform(볼) 참조 없음 — 바인딩 건너뜀");
+            }
 
             // FootSystem
             if (_footprintDetector != null)
@@ -191,14 +254,14 @@ namespace CharacterPressing
             else if (_showDebugLog)
                 Debug.LogWarning("[CharacterKeyManager] FootprintDetector 참조 없음 — 바인딩 건너뜀");
 
-            // MeshDeformToSphere
-            if (_spherifyController != null)
+            // SpherifyDeformer
+            if (_spherifyDeformer != null)
             {
-                TryAddAutoBinding("SpherifyStart",  _spherifyKey,       KeyTrigger.Down, _spherifyController.TransformToSphere);
-                TryAddAutoBinding("SpherifyRevert", _spherifyRevertKey, KeyTrigger.Down, _spherifyController.RevertToOriginal);
+                TryAddAutoBinding("SpherifyStart",  _spherifyKey,       KeyTrigger.Down, _spherifyDeformer.TransformToSphere);
+                TryAddAutoBinding("SpherifyRevert", _spherifyRevertKey, KeyTrigger.Down, _spherifyDeformer.RevertToOriginal);
             }
             else if (_showDebugLog)
-                Debug.LogWarning("[CharacterKeyManager] SpherifyController 참조 없음 — 바인딩 건너뜀");
+                Debug.LogWarning("[CharacterKeyManager] SpherifyDeformer 참조 없음 — 바인딩 건너뜀");
 
             // SoftBody (SphereDeform)
             if (_sphereDeform != null)
@@ -206,13 +269,10 @@ namespace CharacterPressing
             else if (_showDebugLog)
                 Debug.LogWarning("[CharacterKeyManager] SphereDeform 참조 없음 — 바인딩 건너뜀");
 
-            // SoftBody (SphereDeformMesh)
-            if (_sphereDeformMesh != null)
-                TryAddAutoBinding("SoftBodyMeshToggle", _softBodyMeshToggleKey, KeyTrigger.Down, _sphereDeformMesh.ToggleDeform);
             else if (_showDebugLog)
                 Debug.LogWarning("[CharacterKeyManager] SphereDeformMesh 참조 없음 — 바인딩 건너뜀");
 
-            // Bounce
+            // CharacterBounce (Controller를 통해 상태/수치 제어)
             if (_bounceController != null)
             {
                 TryAddAutoBinding("BounceDefault",  _bounceDefaultKey,  KeyTrigger.Down, _bounceController.SetDefaultState);
@@ -325,4 +385,3 @@ namespace CharacterPressing
         #endregion
     }
 }
-

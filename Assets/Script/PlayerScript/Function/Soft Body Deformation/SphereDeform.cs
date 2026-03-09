@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(SphereCollider))]
+
 public class SphereDeform : MonoBehaviour
 {
     #region Inspector - 변형 설정
@@ -52,7 +51,8 @@ public class SphereDeform : MonoBehaviour
     Vector3[] originalVertices;
     Vector3[] deformedVertices;
 
-    SphereCollider sphereCollider;
+    [SerializeField]SphereCollider sphereCollider;
+    [SerializeField]MeshFilter meshFilter;
     float originalRadius;
 
     // 충돌 오브젝트별 접촉 정보 (Key: Collider)
@@ -71,11 +71,9 @@ public class SphereDeform : MonoBehaviour
 
     void Start()
     {
-        mesh = GetComponent<MeshFilter>().mesh;
+        mesh = meshFilter.mesh;
         originalVertices = mesh.vertices;
         deformedVertices = (Vector3[])originalVertices.Clone();
-
-        sphereCollider = GetComponent<SphereCollider>();
         originalRadius = sphereCollider.radius;
 
         if (deformRadius <= 0f)

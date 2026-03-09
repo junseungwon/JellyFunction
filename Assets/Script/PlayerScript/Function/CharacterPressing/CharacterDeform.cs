@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace CharacterPressing
@@ -11,13 +12,14 @@ namespace CharacterPressing
     }
 
     /// <summary>
-    /// Bone 스케일 변경 + 대상 오브젝트의 로컬 위치 감소를 담당하는 순수 변형 컴포넌트.
-    /// 전환 제어·입력은 CharacterPressController에서 담당합니다.
+    /// Bone 스케일 변경 + 대상 오브젝트의 로컬 위치 감소를 담당하는 순수 실행 엔진.
+    /// 수치 파라미터는 Inspector에 노출하지 않으며, Controller가 프로퍼티를 통해 설정합니다.
+    /// 전환 로직(Press/Revert)은 자체 엔진으로 동작합니다.
     /// 모든 변환은 Local 기준입니다.
     /// </summary>
     public class CharacterDeform : MonoBehaviour
     {
-        #region Inspector
+        #region Inspector - 오브젝트 참조 / 구조적 설정
 
         [Header("대상 (Inspector에서 할당)")]
         [Tooltip("스케일을 변경할 핵심 Bone")]
@@ -33,31 +35,8 @@ namespace CharacterPressing
         [Tooltip("위치를 줄일 로컬 축 (X/Y/Z)")]
         [SerializeField] PressAxis _positionAxis = PressAxis.Y;
 
-        [Header("Bone 스케일 (Local)")]
-        [Tooltip("압축 시 해당 축 localScale 목표 최소값 (이 값까지 줄어듦)")]
-        [Range(0.01f, 1f)]
-        [SerializeField] float _boneScaleMin = 0.3f;
-
-        [Tooltip("스케일이 이 값 아래로 내려가지 않도록 하는 최저 한계")]
-        [Range(0.01f, 1f)]
-        [SerializeField] float _boneScaleMinLimit = 0.01f;
-
-        [Header("위치 감소 (Local)")]
-        [Tooltip("압축 시 로컬 축으로 줄어들 총 거리 (양수 = 음의 방향으로 감소)")]
-        [SerializeField] float _heightDownAmount = 0.5f;
-
-        [Tooltip("위치 축이 이 값 아래로 내려가지 않도록 하는 최저값 (로컬 좌표)")]
-        [SerializeField] float _positionAxisMinValue = -1000f;
-
-        [Header("연속 이동 (선택)")]
-        [Tooltip("켜면 매 프레임 _heightDownSpeedPerSecond만큼 위치 축으로 로컬 이동 (DeformAmount와 무관)")]
-        [SerializeField] bool _useContinuousHeightSpeed = false;
-
-        [Tooltip("매 초당 로컬 위치 축 이동량 (감소 방향은 음수, 예: -0.01)")]
-        [SerializeField] float _heightDownSpeedPerSecond = -0.01f;
-
         [Header("Debug")]
-        [Tooltip("켜면 초기화 시 콘솔에 로그 출력")]
+        [Tooltip("켜면 초기화·전환 시작/완료 시 콘솔에 로그 출력")]
         [SerializeField] bool _showDebugLog = false;
 
         [Tooltip("켜면 Scene 뷰에 위치 축·최저값·Bone 축을 기즈모로 표시")]
@@ -68,18 +47,57 @@ namespace CharacterPressing
 
         #endregion
 
-        #region Private Fields
+        #region Private Fields - 수치 (Controller가 프로퍼티로 설정)
+
+        float _boneScaleMin = 0.3f;
+        float _boneScaleMinLimit = 0.01f;
+        float _heightDownAmount = 0.5f;
+        float _positionAxisMinValue = -1000f;
+        bool _useContinuousHeightSpeed = false;
+        float _heightDownSpeedPerSecond = -0.01f;
+        float _pressDuration = 0.5f;
+        AnimationCurve _pressCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+        float _revertDuration = 0.5f;
+        AnimationCurve _revertCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+        #endregion
+
+        #region Private Fields - 런타임 상태
 
         float _initialBoneScaleAxis;
         float _initialLocalPosAxis;
         Vector3 _initialLocalScaleBone;
         bool _initialized;
-
         float _deformAmount;
 
-        /// <summary>
-        /// 변형량 0~1. 설정 즉시 Bone 스케일과 위치에 반영됩니다.
-        /// </summary>
+        #endregion
+
+        #region Transition State
+
+        enum TransitionMode { None, Pressing, Reverting }
+
+        TransitionMode _mode = TransitionMode.None;
+        float _transitionStartAmount;
+        float _transitionTargetAmount;
+        float _transitionElapsed;
+
+        #endregion
+
+        #region Events - 콜백 (Controller가 구독)
+
+        /// <summary>Press 전환 시작 시 호출</summary>
+        public event Action OnPressStarted;
+        /// <summary>Revert 전환 시작 시 호출</summary>
+        public event Action OnRevertStarted;
+        /// <summary>Press 전환 완료 시 호출</summary>
+        public event Action OnPressCompleted;
+        /// <summary>Revert 전환 완료 시 호출</summary>
+        public event Action OnRevertCompleted;
+
+        #endregion
+
+        #region Properties - 수치 (Controller가 설정)
+
         public float DeformAmount
         {
             get => _deformAmount;
@@ -88,6 +106,108 @@ namespace CharacterPressing
                 _deformAmount = Mathf.Clamp01(value);
                 Apply(_deformAmount);
             }
+        }
+
+        public float CurrentAmount => _deformAmount;
+
+        public float PressDuration
+        {
+            get => _pressDuration;
+            set => _pressDuration = Mathf.Max(0.001f, value);
+        }
+
+        public AnimationCurve PressCurve
+        {
+            get => _pressCurve;
+            set => _pressCurve = value ?? AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+        }
+
+        public float RevertDuration
+        {
+            get => _revertDuration;
+            set => _revertDuration = Mathf.Max(0.001f, value);
+        }
+
+        public AnimationCurve RevertCurve
+        {
+            get => _revertCurve;
+            set => _revertCurve = value ?? AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+        }
+
+        public float BoneScaleMin
+        {
+            get => _boneScaleMin;
+            set => _boneScaleMin = Mathf.Clamp(value, 0.01f, 1f);
+        }
+
+        public float BoneScaleMinLimit
+        {
+            get => _boneScaleMinLimit;
+            set => _boneScaleMinLimit = Mathf.Clamp(value, 0.01f, 1f);
+        }
+
+        public float HeightDownAmount
+        {
+            get => _heightDownAmount;
+            set => _heightDownAmount = value;
+        }
+
+        public float PositionAxisMinValue
+        {
+            get => _positionAxisMinValue;
+            set => _positionAxisMinValue = value;
+        }
+
+        public bool UseContinuousHeightSpeed
+        {
+            get => _useContinuousHeightSpeed;
+            set => _useContinuousHeightSpeed = value;
+        }
+
+        public float HeightDownSpeedPerSecond
+        {
+            get => _heightDownSpeedPerSecond;
+            set => _heightDownSpeedPerSecond = value;
+        }
+
+        #endregion
+
+        #region Public API - 전환 실행
+
+        public void Press()
+        {
+            if (_showDebugLog)
+                Debug.Log($"[CharacterDeform] Press 시작 | {_deformAmount:F2} → 1 | 시간: {_pressDuration}s");
+
+            BeginTransition(TransitionMode.Pressing, _deformAmount, 1f);
+            OnPressStarted?.Invoke();
+        }
+
+        public void Revert()
+        {
+            if (_showDebugLog)
+                Debug.Log($"[CharacterDeform] Revert 시작 | {_deformAmount:F2} → 0 | 시간: {_revertDuration}s");
+
+            BeginTransition(TransitionMode.Reverting, _deformAmount, 0f);
+            OnRevertStarted?.Invoke();
+        }
+
+        public void SnapToPress()
+        {
+            _mode = TransitionMode.None;
+            DeformAmount = 1f;
+
+            if (_showDebugLog)
+                Debug.Log("[CharacterDeform] SnapToPress (즉시 압축)");
+        }
+
+        public void SnapToOriginal()
+        {
+            _mode = TransitionMode.None;
+            DeformAmount = 0f;
+
+            if (_showDebugLog)
+                Debug.Log("[CharacterDeform] SnapToOriginal (즉시 복원)");
         }
 
         #endregion
@@ -99,16 +219,6 @@ namespace CharacterPressing
             CaptureInitials();
         }
 
-        void OnValidate()
-        {
-            if (Application.isPlaying && _initialized)
-                Apply(_deformAmount);
-        }
-
-        /// <summary>
-        /// 현재 Bone·위치 대상의 로컬 값을 기준값으로 캡처합니다.
-        /// 런타임에서 대상 오브젝트를 바꾼 뒤 다시 호출하면 기준값이 갱신됩니다.
-        /// </summary>
         public void CaptureInitials()
         {
             if (_coreBone != null)
@@ -128,13 +238,68 @@ namespace CharacterPressing
 
         void Update()
         {
-            if (!_useContinuousHeightSpeed || _heightTarget == null) return;
+            TickTransition();
 
-            float delta = _heightDownSpeedPerSecond * Time.deltaTime;
-            float current = GetPositionAxis(_heightTarget.localPosition, _positionAxis);
-            float next = Mathf.Max(current + delta, _positionAxisMinValue);
-            _heightTarget.localPosition = WithPositionAxis(_heightTarget.localPosition, _positionAxis, next);
+            if (_useContinuousHeightSpeed && _heightTarget != null)
+            {
+                float delta = _heightDownSpeedPerSecond * Time.deltaTime;
+                float current = GetPositionAxis(_heightTarget.localPosition, _positionAxis);
+                float next = Mathf.Max(current + delta, _positionAxisMinValue);
+                _heightTarget.localPosition = WithPositionAxis(_heightTarget.localPosition, _positionAxis, next);
+            }
         }
+
+        #endregion
+
+        #region Private - Transition
+
+        void BeginTransition(TransitionMode mode, float from, float to)
+        {
+            _mode = mode;
+            _transitionStartAmount = from;
+            _transitionTargetAmount = to;
+            _transitionElapsed = 0f;
+        }
+
+        void TickTransition()
+        {
+            if (_mode == TransitionMode.None) return;
+
+            float duration = _mode == TransitionMode.Pressing ? _pressDuration : _revertDuration;
+            AnimationCurve curve = _mode == TransitionMode.Pressing ? _pressCurve : _revertCurve;
+
+            _transitionElapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(_transitionElapsed / duration);
+            float eased = curve.Evaluate(progress);
+
+            DeformAmount = Mathf.Lerp(_transitionStartAmount, _transitionTargetAmount, eased);
+
+            if (progress >= 1f)
+                CompleteTransition();
+        }
+
+        void CompleteTransition()
+        {
+            bool wasPressing = _mode == TransitionMode.Pressing;
+            _mode = TransitionMode.None;
+
+            if (wasPressing)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[CharacterDeform] 압축 완료 (DeformAmount=1)");
+                OnPressCompleted?.Invoke();
+            }
+            else
+            {
+                if (_showDebugLog)
+                    Debug.Log("[CharacterDeform] 팽창(복원) 완료 (DeformAmount=0)");
+                OnRevertCompleted?.Invoke();
+            }
+        }
+
+        #endregion
+
+        #region Private - Apply
 
         void Apply(float amount)
         {
@@ -158,8 +323,6 @@ namespace CharacterPressing
         #endregion
 
         #region Axis Helpers
-
-        // ─── 축 유틸 ──────────────────────────────────────────────
 
         static float GetPositionAxis(Vector3 p, PressAxis axis)
         {
@@ -199,8 +362,6 @@ namespace CharacterPressing
         #endregion
 
         #region Gizmos
-
-        // ─── 기즈모 ───────────────────────────────────────────────
 
         void OnDrawGizmos()
         {

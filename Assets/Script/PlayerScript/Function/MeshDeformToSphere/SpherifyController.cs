@@ -3,169 +3,159 @@ using UnityEngine.Events;
 
 namespace SpherifySystem
 {
+    /// <summary>
+    /// SpherifyDeformer(Feature)의 모든 수치를 소유하고 조정하는 컨트롤러.
+    /// AutoStart 설정과 UnityEvent도 이 컨트롤러가 소유합니다.
+    /// Feature의 C# event를 구독하여 UnityEvent를 발화합니다.
+    /// </summary>
     public class SpherifyController : MonoBehaviour
     {
         #region Inspector
 
-        [Header("References")]
-        [SerializeField] SpherifyDeformer deformer;
+        [Header("참조")]
+        [SerializeField] SpherifyDeformer _deformer = null;
 
-        [Header("Transition Settings")]
-        [SerializeField] float          transitionDuration = 0.5f;
-        [SerializeField] AnimationCurve easingCurve =
+        [Header("전환 설정")]
+        [Tooltip("전환 시간(초)")]
+        [SerializeField] float _transitionDuration = 0.5f;
+
+        [Tooltip("전환 보간 커브")]
+        [SerializeField] AnimationCurve _easingCurve =
             AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-        [Header("Events")]
-        public UnityEvent onSphereComplete;   // 구형 전환 완료 시
-        public UnityEvent onRevertComplete;   // 원본 복원 완료 시
-
         [Header("Auto Start")]
-        [SerializeField] bool transformToSphereOnStart = true;
-        [SerializeField] bool logOnSphereComplete;
+        [Tooltip("Start에서 자동으로 구형 전환 시작")]
+        [SerializeField] bool _transformToSphereOnStart = false;
+
+        [Header("Sphere 설정")]
+        [Tooltip("자동 반지름 계산 사용 여부")]
+        [SerializeField] bool _autoCalcRadius = true;
+
+        [Tooltip("수동 반지름 값")]
+        [SerializeField] float _manualRadius = 1f;
+
+        [Header("Performance")]
+        [Tooltip("Job System 사용 여부")]
+        [SerializeField] bool _useJobSystem = true;
+
+        [Header("이벤트")]
+        public UnityEvent onSphereComplete;
+        public UnityEvent onRevertComplete;
 
         [Header("Debug")]
-        [SerializeField] bool _showDebugLog = true;
-
-        #endregion
-
-        #region Private - State
-
-        // ── 내부 상태 ────────────────────────────────────────────
-        float currentT    = 0f;
-        float startT      = 0f;
-        float targetT     = 0f;
-        float elapsedTime = 0f;
-        bool  isTransitioning = false;
-
-        // 현재 SpherifyAmount 외부 참조용
-        public float CurrentAmount => currentT;
-
-        #endregion
-
-        #region Public API
-
-        // ── 공개 API ─────────────────────────────────────────────
-
-        /// <summary>구형으로 전환</summary>
-        public void TransformToSphere()
-        {
-            if (_showDebugLog)
-                Debug.Log($"[SpherifyController] 구형 전환 시작 | 소요 시간: {transitionDuration}s");
-            SetTarget(1f);
-        }
-
-        /// <summary>원본으로 복원</summary>
-        public void RevertToOriginal()
-        {
-            if (_showDebugLog)
-                Debug.Log("[SpherifyController] 원본 복원 시작");
-            SetTarget(0f);
-        }
-
-        /// <summary>0~1 사이 임의 비율로 설정</summary>
-        public void SetSpherifyRatio(float ratio)
-        {
-            if (_showDebugLog)
-                Debug.Log($"[SpherifyController] SpherifyRatio 설정: {ratio:F2}");
-            SetTarget(Mathf.Clamp01(ratio));
-        }
-
-        /// <summary>즉시 구형으로 전환 (애니메이션 없음)</summary>
-        public void SnapToSphere()
-        {
-            currentT = targetT = startT = 1f;
-            elapsedTime    = transitionDuration;
-            isTransitioning = false;
-            deformer.SpherifyAmount = 1f;
-
-            if (_showDebugLog)
-                Debug.Log("[SpherifyController] ✅ 즉시 구형 전환 완료 (Snap)");
-        }
-
-        /// <summary>즉시 원본으로 복원 (애니메이션 없음)</summary>
-        public void SnapToOriginal()
-        {
-            currentT = targetT = startT = 0f;
-            elapsedTime    = transitionDuration;
-            isTransitioning = false;
-            deformer.ForceRevert();
-
-            if (_showDebugLog)
-                Debug.Log("[SpherifyController] ✅ 즉시 원본 복원 완료 (Snap)");
-        }
-
-        #endregion
-
-        #region Private - Transition
-
-        // ── 내부 전환 처리 ───────────────────────────────────────
-        void SetTarget(float t)
-        {
-            if (Mathf.Approximately(t, targetT) && isTransitioning == false) return;
-
-            startT          = currentT; // 현재 위치를 시작점으로 저장 (역전 안전)
-            targetT         = t;
-            elapsedTime     = 0f;
-            isTransitioning = true;
-        }
-
-        void Update()
-        {
-            if (!isTransitioning) return;
-
-            elapsedTime += Time.deltaTime;
-            float progress      = Mathf.Clamp01(elapsedTime / transitionDuration);
-            float easedProgress = easingCurve.Evaluate(progress);
-
-            currentT = Mathf.Lerp(startT, targetT, easedProgress);
-            deformer.SpherifyAmount = currentT;
-
-            // 전환 완료 체크
-            if (progress >= 1f)
-            {
-                currentT        = targetT;
-                isTransitioning = false;
-
-                if (Mathf.Approximately(targetT, 1f))
-                {
-                    if (_showDebugLog)
-                        Debug.Log("[SpherifyController] ✅ 구형 전환 완료");
-                    onSphereComplete?.Invoke();
-                }
-                else if (Mathf.Approximately(targetT, 0f))
-                {
-                    if (_showDebugLog)
-                        Debug.Log("[SpherifyController] ✅ 원본 복원 완료");
-                    onRevertComplete?.Invoke();
-                }
-            }
-        }
-
-        /// <summary>AutoStart 비활성화 — Sequencer가 Awake에서 호출해 흐름을 직접 제어</summary>
-        public void DisableAutoStart()
-        {
-            transformToSphereOnStart = false;
-            if (_showDebugLog)
-                Debug.Log("[SpherifyController] AutoStart 비활성화 (Sequencer 제어 모드)");
-        }
+        [Tooltip("켜면 수치 적용 시 콘솔에 로그 출력")]
+        [SerializeField] bool _showDebugLog = false;
 
         #endregion
 
         #region Unity Lifecycle
 
-        // ── Inspector 자동 연결 ──────────────────────────────────
-        void Reset()
+        void Awake()
         {
-            deformer = GetComponent<SpherifyDeformer>();
+            if (_deformer == null)
+                _deformer = GetComponent<SpherifyDeformer>();
+
+            ApplyAll();
+            SubscribeFeatureEvents();
         }
 
         void Start()
         {
-            if (logOnSphereComplete)
-                onSphereComplete.AddListener(() => Debug.Log("구형 전환 완료!"));
+            if (_transformToSphereOnStart && _deformer != null)
+                _deformer.TransformToSphere();
+        }
 
-            if (transformToSphereOnStart)
-                TransformToSphere();
+        void OnDestroy()
+        {
+            UnsubscribeFeatureEvents();
+        }
+
+        void OnValidate()
+        {
+            if (Application.isPlaying && _deformer != null)
+                ApplyAll();
+        }
+
+        void Reset()
+        {
+            _deformer = GetComponent<SpherifyDeformer>();
+        }
+
+        #endregion
+
+        #region Event Subscription
+
+        void SubscribeFeatureEvents()
+        {
+            if (_deformer == null) return;
+            _deformer.OnSphereCompleted += HandleSphereCompleted;
+            _deformer.OnRevertCompleted += HandleRevertCompleted;
+        }
+
+        void UnsubscribeFeatureEvents()
+        {
+            if (_deformer == null) return;
+            _deformer.OnSphereCompleted -= HandleSphereCompleted;
+            _deformer.OnRevertCompleted -= HandleRevertCompleted;
+        }
+
+        void HandleSphereCompleted() => onSphereComplete?.Invoke();
+        void HandleRevertCompleted() => onRevertComplete?.Invoke();
+
+        #endregion
+
+        #region Public API - 수치 조정
+
+        public void ApplyAll()
+        {
+            if (_deformer == null) return;
+
+            _deformer.TransitionDuration = _transitionDuration;
+            _deformer.EasingCurve = _easingCurve;
+            _deformer.AutoCalcRadius = _autoCalcRadius;
+            _deformer.ManualRadius = _manualRadius;
+            _deformer.UseJobSystem = _useJobSystem;
+
+            if (_showDebugLog)
+                Debug.Log($"[SpherifyController] 수치 일괄 적용 | Duration:{_transitionDuration} Radius:{_manualRadius} JobSystem:{_useJobSystem}");
+        }
+
+        public void SetTransitionDuration(float duration)
+        {
+            _transitionDuration = Mathf.Max(0.001f, duration);
+            if (_deformer != null) _deformer.TransitionDuration = _transitionDuration;
+        }
+
+        public void SetEasingCurve(AnimationCurve curve)
+        {
+            _easingCurve = curve;
+            if (_deformer != null) _deformer.EasingCurve = _easingCurve;
+        }
+
+        public void SetManualRadius(float radius)
+        {
+            _manualRadius = Mathf.Max(0.001f, radius);
+            if (_deformer != null) _deformer.ManualRadius = _manualRadius;
+        }
+
+        public void SetAutoCalcRadius(bool auto)
+        {
+            _autoCalcRadius = auto;
+            if (_deformer != null) _deformer.AutoCalcRadius = _autoCalcRadius;
+        }
+
+        public void SetUseJobSystem(bool use)
+        {
+            _useJobSystem = use;
+            if (_deformer != null) _deformer.UseJobSystem = _useJobSystem;
+        }
+
+        /// <summary>AutoStart 비활성화 — Sequencer가 Awake에서 호출해 흐름을 직접 제어</summary>
+        public void DisableAutoStart()
+        {
+            _transformToSphereOnStart = false;
+            if (_showDebugLog)
+                Debug.Log("[SpherifyController] AutoStart 비활성화 (Sequencer 제어 모드)");
         }
 
         #endregion
