@@ -27,6 +27,13 @@ public class AutoRotate : MonoBehaviour
         currentSpeed = new Vector3(speedX, speedY, speedZ);
     }
 
+    void OnDisable()
+    {
+        // 회전 비활성화 시 로컬 회전과 내부 속도 초기화
+        transform.localRotation = Quaternion.identity;
+        currentSpeed = Vector3.zero;
+    }
+
     void Update()
     {
         if (paused) return;

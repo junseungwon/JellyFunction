@@ -29,10 +29,16 @@ namespace SpherifySystem
 
         #region Private - Mesh State
 
-        [SerializeField]MeshFilter       meshFilter;
+        [Header("Bridge - MeshFilter 소스")]
+        [Tooltip("비어 있으면 씬에서 MeshConverterBridge를 자동 탐색합니다.")]
+        [SerializeField] MeshConverterBridge bridge;
+        [Tooltip("비어 있으면 이 컴포넌트가 붙은 GameObject 이름을 키로 사용합니다.")]
+        [SerializeField] string bridgeKeyOverride = "";
+
         Mesh             deformMesh;
         MeshDataSnapshot snapshot;
         SpherifyJobRunner jobRunner;
+        bool             _initialized;
 
         #endregion
 
@@ -100,6 +106,7 @@ namespace SpherifySystem
 
         public void TransformToSphere()
         {
+            if (!_initialized) return;
             if (_showDebugLog)
                 Debug.Log($"[SpherifyDeformer] 구형 전환 시작 | 소요 시간: {_transitionDuration}s");
             SetTarget(1f);
@@ -107,6 +114,7 @@ namespace SpherifySystem
 
         public void RevertToOriginal()
         {
+            if (!_initialized) return;
             if (_showDebugLog)
                 Debug.Log("[SpherifyDeformer] 원본 복원 시작");
             SetTarget(0f);
@@ -114,6 +122,7 @@ namespace SpherifySystem
 
         public void SetSpherifyRatio(float ratio)
         {
+            if (!_initialized) return;
             if (_showDebugLog)
                 Debug.Log($"[SpherifyDeformer] SpherifyRatio 설정: {ratio:F2}");
             SetTarget(Mathf.Clamp01(ratio));
@@ -121,6 +130,7 @@ namespace SpherifySystem
 
         public void SnapToSphere()
         {
+            if (!_initialized) return;
             _currentT = _targetT = _startT = 1f;
             _elapsedTime    = _transitionDuration;
             _isTransitioning = false;
@@ -131,6 +141,7 @@ namespace SpherifySystem
 
         public void SnapToOriginal()
         {
+            if (!_initialized) return;
             _currentT = _targetT = _startT = 0f;
             _elapsedTime    = _transitionDuration;
             _isTransitioning = false;
@@ -146,6 +157,7 @@ namespace SpherifySystem
 
         public void ForceRevert()
         {
+            if (!_initialized) return;
             if (_showDebugLog)
                 Debug.Log("[SpherifyDeformer] 강제 원본 복원 시작...");
 
@@ -167,6 +179,7 @@ namespace SpherifySystem
 
         public Vector3[] GetCurrentVerticesCopy()
         {
+            if (!_initialized) return null;
             Vector3[] copy = new Vector3[snapshot.VertexCount];
             System.Array.Copy(snapshot.currentVertices, copy, snapshot.VertexCount);
 
@@ -176,16 +189,48 @@ namespace SpherifySystem
             return copy;
         }
 
-        public Bounds GetCurrentBounds() => deformMesh.bounds;
+        public Bounds GetCurrentBounds() => _initialized ? deformMesh.bounds : default;
 
         #endregion
 
         #region Unity Lifecycle
 
-        void Awake()
+        void Start()
         {
-    
-            deformMesh = meshFilter.mesh;
+            if (bridge == null)
+                bridge = FindFirstObjectByType<MeshConverterBridge>();
+
+            if (bridge == null)
+            {
+                Debug.LogWarning("[SpherifyDeformer] MeshConverterBridge를 찾을 수 없습니다. 비활성화합니다.", this);
+                enabled = false;
+                return;
+            }
+
+            string key = string.IsNullOrEmpty(bridgeKeyOverride) ? gameObject.name : bridgeKeyOverride;
+            GameObject staticObj = bridge.GetStaticObject(key);
+
+            if (staticObj == null)
+            {
+                Debug.LogWarning($"[SpherifyDeformer] 브릿지에서 키 '{key}'에 해당하는 StaticObject를 찾을 수 없습니다. 비활성화합니다.", this);
+                enabled = false;
+                return;
+            }
+
+            MeshFilter mf = staticObj.GetComponent<MeshFilter>();
+            if (mf == null)
+            {
+                Debug.LogWarning($"[SpherifyDeformer] StaticObject '{staticObj.name}'에 MeshFilter가 없습니다. 비활성화합니다.", this);
+                enabled = false;
+                return;
+            }
+
+            InitializeWithMeshFilter(mf);
+        }
+
+        void InitializeWithMeshFilter(MeshFilter mf)
+        {
+            deformMesh = mf.mesh;
 
             CurrentRadius = _autoCalcRadius
                 ? deformMesh.bounds.extents.magnitude
@@ -196,17 +241,21 @@ namespace SpherifySystem
             if (_useJobSystem)
                 jobRunner = new SpherifyJobRunner(snapshot);
 
+            _initialized = true;
+
             if (_showDebugLog)
                 Debug.Log($"[SpherifyDeformer] 초기화 완료 | 버텍스 수: {snapshot.VertexCount} | 반지름: {CurrentRadius:F3} | JobSystem: {_useJobSystem}");
         }
 
         void Update()
         {
+            if (!_initialized) return;
             TickTransition();
         }
 
         void LateUpdate()
         {
+            if (!_initialized) return;
             if (Mathf.Approximately(_currentT, 0f))
                 return;
 

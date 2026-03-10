@@ -40,12 +40,21 @@ namespace CharacterPressing
         [Tooltip("활성/비활성 제어할 캐릭터 루트 오브젝트")]
         [SerializeField] private GameObject _characterObject = null;
 
+        [Tooltip("캐릭터 메시 전환용 브릿지. Character→Ball 시 MeshFilter 부모 켜고 SkinnedMesh 부모 끔")]
+        [SerializeField] private MeshConverterBridge _bridge = null;
+
         [Header("볼 참조")]
         [Tooltip("볼 오브젝트의 CharacterDeform (Press 기능)")]
         [SerializeField] private CharacterDeform _ballDeform = null;
 
         [Tooltip("활성/비활성 제어할 볼 루트 오브젝트")]
         [SerializeField] private GameObject _ballObject = null;
+
+        [Tooltip("볼에 붙어 있는 SphereCollider. 공 팽창 완료 시 활성화, 모델 전환 시작 시 비활성화")]
+        [SerializeField] private SphereCollider _ballCollider = null;
+
+        [Tooltip("볼에 붙어 있는 AutoRotate. 공 팽창 완료 시 활성화, 모델 전환 시작 시 비활성화")]
+        [SerializeField] private AutoRotate _ballAutoRotate = null;
 
         [Header("Debug")]
         [Tooltip("켜면 전환 시작/완료 시 콘솔에 로그 출력")]
@@ -73,6 +82,15 @@ namespace CharacterPressing
         {
             if (_ballObject != null)
                 _ballObject.SetActive(false);
+
+            if (_ballCollider != null)
+                _ballCollider.enabled = false;
+
+            if (_ballAutoRotate != null)
+                _ballAutoRotate.enabled = false;
+
+            if (_showDebugLog)
+                Debug.Log("[ChangeModel] Awake | ballObject 비활성화, currentState=Character", this);
         }
 
         #endregion
@@ -85,12 +103,25 @@ namespace CharacterPressing
         /// </summary>
         public void Toggle()
         {
-            if (_isTransitioning) return;
+            if (_isTransitioning)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] Toggle 무시 | 전환 중", this);
+                return;
+            }
 
             if (_currentState == ModelState.Character)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] Toggle | Character → Ball 시퀀스 시작", this);
                 StartCharacterToBall();
+            }
             else
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] Toggle | Ball → Character 시퀀스 시작", this);
                 StartBallToCharacter();
+            }
         }
 
         #endregion
@@ -103,9 +134,17 @@ namespace CharacterPressing
             if (_isTransitioning) return;
 
             if (_currentState == ModelState.Character)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] PressActive | CharacterDeform.Press()", this);
                 _characterDeform?.Press();
+            }
             else
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] PressActive | BallDeform.Press()", this);
                 _ballDeform?.Press();
+            }
         }
 
         /// <summary>현재 활성 모드의 Revert를 실행합니다. CharacterKeyManager에서 바인딩합니다.</summary>
@@ -114,9 +153,17 @@ namespace CharacterPressing
             if (_isTransitioning) return;
 
             if (_currentState == ModelState.Character)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] RevertActive | CharacterDeform.Revert()", this);
                 _characterDeform?.Revert();
+            }
             else
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] RevertActive | BallDeform.Revert()", this);
                 _ballDeform?.Revert();
+            }
         }
 
         /// <summary>현재 활성 모드의 SnapToPress를 실행합니다.</summary>
@@ -125,9 +172,17 @@ namespace CharacterPressing
             if (_isTransitioning) return;
 
             if (_currentState == ModelState.Character)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] SnapToPressActive | CharacterDeform.SnapToPress()", this);
                 _characterDeform?.SnapToPress();
+            }
             else
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] SnapToPressActive | BallDeform.SnapToPress()", this);
                 _ballDeform?.SnapToPress();
+            }
         }
 
         /// <summary>현재 활성 모드의 SnapToOriginal을 실행합니다.</summary>
@@ -136,9 +191,17 @@ namespace CharacterPressing
             if (_isTransitioning) return;
 
             if (_currentState == ModelState.Character)
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] SnapToOriginalActive | CharacterDeform.SnapToOriginal()", this);
                 _characterDeform?.SnapToOriginal();
+            }
             else
+            {
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] SnapToOriginalActive | BallDeform.SnapToOriginal()", this);
                 _ballDeform?.SnapToOriginal();
+            }
         }
 
         #endregion
@@ -148,6 +211,9 @@ namespace CharacterPressing
         private void StartCharacterToBall()
         {
             _isTransitioning = true;
+
+            if (_bridge != null)
+                _bridge.SwapAll(useStatic: true);
 
             if (_showDebugLog)
                 Debug.Log("[ChangeModel] Forward 시작 | Character → Ball");
@@ -166,11 +232,28 @@ namespace CharacterPressing
             _characterObject.SetActive(false);
             _ballDeform.Revert();
 
+            _ballDeform.OnRevertCompleted += OnBallRevertCompletedForward;
+
             _currentState = ModelState.Ball;
             _isTransitioning = false;
 
             if (_showDebugLog)
-                Debug.Log("[ChangeModel] Forward 완료 | 상태: Ball");
+                Debug.Log("[ChangeModel] Forward 완료 | 상태: Ball (볼 팽창 완료 시 Collider 활성화 예정)");
+        }
+
+        /// <summary>볼 Revert(팽창) 완료 시 SphereCollider를 활성화합니다.</summary>
+        private void OnBallRevertCompletedForward()
+        {
+            _ballDeform.OnRevertCompleted -= OnBallRevertCompletedForward;
+
+            if (_ballCollider != null)
+                _ballCollider.enabled = true;
+
+            if (_ballAutoRotate != null)
+                _ballAutoRotate.enabled = true;
+
+            if (_showDebugLog)
+                Debug.Log("[ChangeModel] 볼 팽창 완료 | Ball Collider, AutoRotate 활성화", this);
         }
 
         #endregion
@@ -180,6 +263,12 @@ namespace CharacterPressing
         private void StartBallToCharacter()
         {
             _isTransitioning = true;
+
+            if (_ballCollider != null)
+                _ballCollider.enabled = false;
+
+            if (_ballAutoRotate != null)
+                _ballAutoRotate.enabled = false;
 
             if (_showDebugLog)
                 Debug.Log("[ChangeModel] Reverse 시작 | Ball → Character");
@@ -194,6 +283,9 @@ namespace CharacterPressing
 
             _characterObject.SetActive(true);
             _ballObject.SetActive(false);
+
+            // Revert가 끝난 시점에 MeshFilter → SkinnedMesh로 Swap
+            _spherifyDeformer.OnRevertCompleted += OnSpherifyRevertCompletedReverse;
             _spherifyDeformer.RevertToOriginal();
             _characterDeform.Revert();
 
@@ -201,7 +293,23 @@ namespace CharacterPressing
             _isTransitioning = false;
 
             if (_showDebugLog)
-                Debug.Log("[ChangeModel] Reverse 완료 | 상태: Character");
+                Debug.Log("[ChangeModel] Reverse 완료 | 상태: Character (Revert 진행 중)");
+        }
+
+        /// <summary>
+        /// SpherifyDeformer.RevertToOriginal() 완료 시 호출되어 MeshFilter 부모를 끄고 SkinnedMesh 부모를 켭니다.
+        /// </summary>
+        private void OnSpherifyRevertCompletedReverse()
+        {
+            _spherifyDeformer.OnRevertCompleted -= OnSpherifyRevertCompletedReverse;
+
+            if (_bridge != null)
+            {
+                _bridge.SwapAll(useStatic: false);
+
+                if (_showDebugLog)
+                    Debug.Log("[ChangeModel] OnSpherifyRevertCompletedReverse | SwapAll(false) - SkinnedMesh 활성, MeshFilter 비활성", this);
+            }
         }
 
         #endregion

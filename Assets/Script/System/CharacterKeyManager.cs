@@ -107,7 +107,7 @@ namespace CharacterPressing
 
         [Header("FootSystem 참조")]
         [Tooltip("발자국 감지 기능. 같은 오브젝트에 있으면 Reset 시 자동 할당됩니다.")]
-        [SerializeField] FootprintDetector _footprintDetector = null;
+        [SerializeField] FootprintDetectorEvent _footprintDetector = null;
 
         [Header("FootSystem 키 설정")]
         [Tooltip("발자국 감지 토글 키 (KeyCode.None이면 바인딩하지 않음)")]
@@ -186,7 +186,7 @@ namespace CharacterPressing
         {
             _changeModel        = GetComponent<ChangeModel>();
             _characterDeform    = GetComponent<CharacterDeform>();
-            _footprintDetector  = GetComponent<FootprintDetector>();
+            _footprintDetector  = GetComponent<FootprintDetectorEvent>();
             _spherifyDeformer   = GetComponent<SpherifyDeformer>();
             _sphereDeform       = GetComponent<SphereDeform>();
             _bounceController   = GetComponent<CharacterBounceController>();
