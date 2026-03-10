@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: c85c7606e3c70134ab1b7a8535714f68, type: 3}
+  m_Motion: {fileID: 7400000, guid: b269ab9b5c1851442bf008bec0c19532, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -61,7 +61,7 @@ BlendTree:
   m_Name: Move
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 9339e2e4f0d13b549b08b7fd00151293, type: 3}
+    m_Motion: {fileID: 7400000, guid: 58a58e5731bf937499eec6e6f70a9448, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -69,10 +69,10 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 4e21208ffccf1ec4b99b213b7905bdf7, type: 3}
+    m_Motion: {fileID: 7400000, guid: 58a58e5731bf937499eec6e6f70a9448, type: 2}
     m_Threshold: 2
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -114,7 +114,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: Player 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Blend
