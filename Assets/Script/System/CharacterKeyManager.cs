@@ -103,6 +103,24 @@ namespace CharacterPressing
 
         #endregion
 
+        #region Inspector - ArmStretch
+
+        [Header("ArmStretch (팔 늘리기)")]
+        [Tooltip("왼팔 ArmStretch 컴포넌트")]
+        [SerializeField] ArmStretch _armStretchLeft = null;
+        [Tooltip("오른팔 ArmStretch 컴포넌트")]
+        [SerializeField] ArmStretch _armStretchRight = null;
+
+        [Header("ArmStretch 키 설정")]
+        [Tooltip("왼팔 늘리기 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _armStretchLeftKey = KeyCode.Mouse0;
+        [Tooltip("오른팔 늘리기 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _armStretchRightKey = KeyCode.Mouse1;
+        [Tooltip("양팔 동시 늘리기 키 (KeyCode.None이면 바인딩하지 않음)")]
+        [SerializeField] KeyCode _armStretchBothKey = KeyCode.Q;
+
+        #endregion
+
         #region Inspector - FootSystem
 
         [Header("FootSystem 참조")]
@@ -197,6 +215,12 @@ namespace CharacterPressing
             if (_characterDeform == null)
                 _characterDeform = GetComponent<CharacterDeform>();
 
+            // ArmStretch 키 설정 적용 (왼팔/오른팔)
+            if (_armStretchLeft != null && _armStretchLeftKey != KeyCode.None)
+                _armStretchLeft.SetStretchKey(_armStretchLeftKey);
+            if (_armStretchRight != null && _armStretchRightKey != KeyCode.None)
+                _armStretchRight.SetStretchKey(_armStretchRightKey);
+
             RegisterAutoBindings();
         }
 
@@ -283,6 +307,13 @@ namespace CharacterPressing
             else if (_showDebugLog)
                 Debug.LogWarning("[CharacterKeyManager] CharacterBounceController 참조 없음 — 바인딩 건너뜀");
 
+            // ArmStretch 양팔 동시 키
+            if (_armStretchBothKey != KeyCode.None)
+            {
+                TryAddAutoBinding("ArmStretchBothStart",   _armStretchBothKey, KeyTrigger.Down, OnArmStretchBothStart);
+                TryAddAutoBinding("ArmStretchBothRetract", _armStretchBothKey, KeyTrigger.Up,   OnArmStretchBothRetract);
+            }
+
             if (_showDebugLog)
                 Debug.Log($"[CharacterKeyManager] 자동 바인딩 완료 | {_autoBindings.Count}개 등록");
         }
@@ -297,6 +328,18 @@ namespace CharacterPressing
 
             if (_showDebugLog)
                 Debug.Log($"[CharacterKeyManager] 자동 바인딩 등록 | \"{label}\" → Key:{key}");
+        }
+
+        void OnArmStretchBothStart()
+        {
+            if (_armStretchLeft != null)  _armStretchLeft.StartStretch();
+            if (_armStretchRight != null) _armStretchRight.StartStretch();
+        }
+
+        void OnArmStretchBothRetract()
+        {
+            if (_armStretchLeft != null)  _armStretchLeft.RetractArm();
+            if (_armStretchRight != null) _armStretchRight.RetractArm();
         }
 
         #endregion

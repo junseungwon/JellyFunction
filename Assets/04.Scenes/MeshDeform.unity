@@ -1279,6 +1279,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: bab44d7f3c123c24b94f50363198006b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bab44d7f3c123c24b94f50363198006b,
         type: 3}
       propertyPath: m_Name
@@ -1525,7 +1530,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showDebugLog: 1
-  meshFilter: {fileID: 0}
+  bridge: {fileID: 0}
+  bridgeKeyOverride: 
 --- !u!114 &663635998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2665,7 +2671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showDebugLog: 1
-  meshFilter: {fileID: 0}
+  bridge: {fileID: 0}
+  bridgeKeyOverride: 
 --- !u!1001 &1277176927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3715,7 +3722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deformRadius: 0.5
-  maxDeformStrength: -0.6
+  maxDeformStrength: -0.4
   deformSpeed: 1
   recoverSpeed: 3
   autoRecover: 0
@@ -4141,7 +4148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showDebugLog: 1
-  meshFilter: {fileID: 0}
+  bridge: {fileID: 0}
+  bridgeKeyOverride: 
 --- !u!114 &1840864563
 MonoBehaviour:
   m_ObjectHideFlags: 0

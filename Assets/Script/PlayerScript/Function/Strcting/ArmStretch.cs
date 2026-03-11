@@ -33,10 +33,6 @@ public class ArmStretch : MonoBehaviour
     [Tooltip("경로가 막혀 있는지 검사할 레이어 (여기 포함된 콜라이더에 닿으면 막힘)")]
     [SerializeField] private LayerMask obstacleLayer;
 
-    [Header("Stretch Input")]
-    [Tooltip("팔 늘리기 시작/해제에 사용할 키")]
-    [SerializeField] private KeyCode stretchKey = KeyCode.Mouse0;
-
     [Header("Mesh Timing")]
     [Tooltip("버튼을 뗀 후 튜브 메시가 사라지기까지 대기 시간(초). 0이면 즉시 제거, 2면 2초 후 제거")]
     [SerializeField] private float _meshClearDelay = 2f;
@@ -93,7 +89,28 @@ public class ArmStretch : MonoBehaviour
     /// <summary>키를 뗐을 때 성장 중이면 true. 성장 완료 후 한 번만 수축/클리어 실행.</summary>
     private bool _retractPending = false;
 
+    /// <summary>팔 늘리기/수축에 사용할 키. CharacterKeyManager에서 설정합니다.</summary>
+    private KeyCode _stretchKey = KeyCode.Mouse0;
+
     #endregion
+
+    /// <summary>팔 stretch에 사용할 키 설정. CharacterKeyManager에서 호출합니다.</summary>
+    public void SetStretchKey(KeyCode key) => _stretchKey = key;
+
+    /// <summary>팔 늘리기 시작. 동시 키 등 외부에서 호출용.</summary>
+    public void StartStretch()
+    {
+        _clearMeshTimer = -1f;
+        if (_shrinkMeshCoroutine != null)
+        {
+            StopCoroutine(_shrinkMeshCoroutine);
+            _shrinkMeshCoroutine = null;
+            _isShrinking = false;
+            if (tubeMeshBuilder != null)
+                tubeMeshBuilder.ClearMesh();
+        }
+        TryStretch();
+    }
 
     #region Private - Helpers
 
@@ -112,7 +129,7 @@ public class ArmStretch : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(stretchKey))
+        if (Input.GetKeyDown(_stretchKey))
         {
             _clearMeshTimer = -1f;
             if (_shrinkMeshCoroutine != null)
@@ -126,7 +143,7 @@ public class ArmStretch : MonoBehaviour
             TryStretch();
         }
 
-        if (Input.GetKeyUp(stretchKey))
+        if (Input.GetKeyUp(_stretchKey))
             RetractArm();
 
         if (_state == ArmState.Stretching)
@@ -451,7 +468,8 @@ public class ArmStretch : MonoBehaviour
         }
     }
 
-    private void RetractArm()
+    /// <summary>팔 수축. 동시 키 등 외부에서 호출용.</summary>
+    public void RetractArm()
     {
         _state = ArmState.Idle;
 
