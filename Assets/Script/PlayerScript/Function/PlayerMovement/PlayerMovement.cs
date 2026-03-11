@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // 수평(XZ)만 설정, Y는 Rigidbody 중력에 맡김
-        _rb.velocity = new Vector3(horizontalVelocity.x, _rb.velocity.y, horizontalVelocity.z);
+        _rb.linearVelocity = new Vector3(horizontalVelocity.x, _rb.linearVelocity.y, horizontalVelocity.z);
 
         // Animator
         float animSpeed = inputDir.magnitude * (isRunning ? 2f : 1f);

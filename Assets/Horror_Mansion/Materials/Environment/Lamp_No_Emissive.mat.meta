@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c2d1ae6668f1de949b68057368dc463f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 254104
+  packageName: Horror Mansion
+  packageVersion: 1.3
+  assetPath: Assets/Horror_Mansion/Materials/Environment/Lamp_No_Emissive.mat
+  uploadId: 650397

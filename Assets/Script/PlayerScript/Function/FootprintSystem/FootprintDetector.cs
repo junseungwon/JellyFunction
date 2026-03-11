@@ -46,7 +46,7 @@ public class FootprintDetector : MonoBehaviour
     private void Update()
     {
         // 이동 중일 때만 검사 (sqrMagnitude로 성능 최적화)
-        if (_rigidbody.velocity.sqrMagnitude < 0.01f)
+        if (_rigidbody.linearVelocity.sqrMagnitude < 0.01f)
         {
             if (_enableDebugLog && (_leftPlanted || _rightPlanted))
                 //Debug.Log("[FootprintDetector] 이동 정지로 검사 스킵 (velocity 거의 0)");

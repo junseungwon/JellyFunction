@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3cf04f8215148594098cb7abd31a323a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 254104
+  packageName: Horror Mansion
+  packageVersion: 1.3
+  assetPath: Assets/Horror_Mansion/Animation/Main Camera.controller
+  uploadId: 650397
