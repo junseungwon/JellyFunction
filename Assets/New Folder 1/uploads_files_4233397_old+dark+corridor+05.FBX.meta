@@ -1,0 +1,317 @@
+fileFormatVersion: 2
+guid: 1b0b0631499df3e4582a8b137a1cbd48
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: e41d09f3429e1094aa1dfc3479f06ed3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ceiling
+    second: {fileID: 2100000, guid: a0ead67086ad34149adf34c870598d8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ceilling lamp metal
+    second: {fileID: 2100000, guid: e1247e907e5aa6440b3eb305c07ca9b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: doors
+    second: {fileID: 2100000, guid: 041ffa695736d814ab37cfafd46f3484, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: doorway
+    second: {fileID: 2100000, guid: f418e72d2efee1041be787a9b5105381, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor_
+    second: {fileID: 2100000, guid: b88023839f4671f449c894df95232015, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: 2541ceaca6c1b6a4abd9e71c12986633, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: handle
+    second: {fileID: 2100000, guid: 44c2519c2faacb04686fb3d551cb471d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal wall lamp
+    second: {fileID: 2100000, guid: def0d69cd46bc1f46b7b2e4453609dc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall lamp shade
+    second: {fileID: 2100000, guid: 8622184ac4d463b4194e8563fda28288, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall lower part
+    second: {fileID: 2100000, guid: 2ebc43ed408da1f4e9e006618d74e0be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wall up part
+    second: {fileID: 2100000, guid: 5f0d87f8a432e8747b1ed468ce5e449e, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceiling_4K_AO
+    second: {fileID: 2800000, guid: 3543abd0f0aae014aa6dd69aab610f39, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceiling_4K_Albedo
+    second: {fileID: 2800000, guid: 4a61d236aced5394cb367eaa342a4e05, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceiling_4K_Normal
+    second: {fileID: 2800000, guid: 36ab659d1a0dfb546888baab973d09de, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceiling_4K_Roughness
+    second: {fileID: 2800000, guid: 472a82965e1cf994599964c2c56ebfe1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceilling dirt 01
+    second: {fileID: 2800000, guid: 87d68f691a31e1c4ab7b649d70d84dd3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceilling dirt 02
+    second: {fileID: 2800000, guid: 0f7a3de9737e2654caed316ad0f439d9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ceilling lamp metal ref
+    second: {fileID: 2800000, guid: a6b6cb5aff96b604bbfed0e75b5b2401, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: door handle ref
+    second: {fileID: 2800000, guid: c29a4611f3cd7b74f8eb243004fb9eb3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: door ref
+    second: {fileID: 2800000, guid: 52d943eb8b24f46408549068a6c70635, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doorway ref
+    second: {fileID: 2800000, guid: 0853246fbf6a91d4a9517d2ca46e1c72, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: floor dirt 01
+    second: {fileID: 2800000, guid: e85d2fd440a800f40a5f08ee0c10e628, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: floor dirt 02
+    second: {fileID: 2800000, guid: e786bc2b78cbb08419dc2835e1b82b3e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: floor dirt 03
+    second: {fileID: 2800000, guid: 2670bff4862e8934499bbf54c02788e9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: floor_4K_AO
+    second: {fileID: 2800000, guid: 97f0b35745f8b4d4f9bcdead01731159, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: floor_4K_Albedo
+    second: {fileID: 2800000, guid: 9cb7ff046b70d804b8c6bf8224c04750, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: floor_4K_Normal
+    second: {fileID: 2800000, guid: 027ee24bad7eedd46be0ae23c5796fe9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: glass lamp dirt
+    second: {fileID: 2800000, guid: 1d5d84df872131242965ab2cab05fe05, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: glass lamp refraction
+    second: {fileID: 2800000, guid: 4d03c20848cf3d0478d0a66d27bed4b9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: light dirt
+    second: {fileID: 2800000, guid: 19c0fc734b8be3b48b4a8cb462d15e0b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: metal wall lamp ref
+    second: {fileID: 2800000, guid: df005dd4c1dde484fbbeb915a0ed7637, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall dirt 01
+    second: {fileID: 2800000, guid: ee6c2f57126dfc74e944fa0132336eb1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall dirt 02
+    second: {fileID: 2800000, guid: f2f8a3df6e62cb44d8339ad412e3e876, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall lower part_4K_AO
+    second: {fileID: 2800000, guid: 1a22c920524582d48aeab90dad798c8b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall lower part_4K_Albedo
+    second: {fileID: 2800000, guid: 95b5920dfdad4d9419b410053b8354b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall lower part_4K_Normal
+    second: {fileID: 2800000, guid: 43b33eca068b37b46be1c0e398ddf9b4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall lower part_4K_Roughness (2)
+    second: {fileID: 2800000, guid: 637b134f7f5b9df42bc8bf1d799489dd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall up part_ Albedo
+    second: {fileID: 2800000, guid: 1b5ea0453e2686a4f97dfc7665a60657, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall up part_2K_AO
+    second: {fileID: 2800000, guid: eda2f3e6874528c4da5cc6c588a39a72, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall up part_2K_Normal
+    second: {fileID: 2800000, guid: 3afd7a2f97ff77b41983b96eabf46319, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wall up part_2K_Roughness
+    second: {fileID: 2800000, guid: 0258cc91f9b73f34484e85d0658d5a36, type: 3}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
