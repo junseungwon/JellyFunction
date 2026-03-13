@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -56,6 +57,8 @@ public class ArmStretch : MonoBehaviour
     [Header("Grab Settings")]
     [Tooltip("켜면 팔이 완전히 뻗었을 때 target 오브젝트를 잡아 끌어당김")]
     [SerializeField] private bool _enableGrab = true;
+    [Tooltip("끌어올 때 armOrigin에서 이 거리 안에 들어오면 잡기를 종료함. 0 이하면 끝까지 당김")]
+    [SerializeField] private float _grabDropDistance = 0f;
 
     [Header("Debug")]
         [Tooltip("경로·제어점 디버그 라인 유지 시간(초)")]
@@ -96,6 +99,9 @@ public class ArmStretch : MonoBehaviour
 
     /// <summary>팔 stretch에 사용할 키 설정. CharacterKeyManager에서 호출합니다.</summary>
     public void SetStretchKey(KeyCode key) => _stretchKey = key;
+
+    /// <summary>수축이 완전히 끝났을 때 발생 (점진 수축 코루틴 종료 또는 즉시 클리어 시). 애니메이션 속도 복구 등에 사용.</summary>
+    public event Action OnRetractComplete;
 
     /// <summary>팔 늘리기 시작. 동시 키 등 외부에서 호출용.</summary>
     public void StartStretch()
@@ -160,7 +166,10 @@ public class ArmStretch : MonoBehaviour
                     if (_useGradualMeshGrowth && _currentPath != null && _currentPath.Length > 2)
                         _shrinkMeshCoroutine = StartCoroutine(ShrinkMeshCoroutine(_currentPath));
                     else
+                    {
                         tubeMeshBuilder.ClearMesh();
+                        OnRetractComplete?.Invoke();
+                    }
                 }
                 if (_moveHandAlongPath && _handModel != null && _shrinkMeshCoroutine == null)
                     SetHandTransform(armOrigin.position, Vector3.forward, false);
@@ -265,6 +274,7 @@ public class ArmStretch : MonoBehaviour
     private void TryGrab()
     {
         if (target == null) return;
+
         _grabbedObject = target;
         _state = ArmState.Grabbed;
         if (_enableLog)
@@ -363,12 +373,10 @@ public class ArmStretch : MonoBehaviour
         if (_enableGrab)
             TryGrab();
 
-        // 키를 뗀 상태로 생성이 끝났으면 이 시점에 수축/클리어 실행
-        if (_retractPending)
-        {
-            _retractPending = false;
-            DoRetractEffect();
-        }
+        // 목표물 도달 시 무조건 자동 수축 (그립 시 잡은 오브젝트는 ShrinkMeshCoroutine에서 팔 끝에 붙여 당김)
+        _state = ArmState.Idle;
+        _retractPending = false;
+        DoRetractEffect();
     }
 
     /// <summary>
@@ -405,9 +413,19 @@ public class ArmStretch : MonoBehaviour
                 SetHandTransform(tip, (tip - tipPrev).normalized, true);
             }
 
-            // 잡은 오브젝트를 현재 팔 끝에 붙여서 이동
+            // 잡은 오브젝트를 현재 팔 끝에 붙여서 이동 (제한 거리 도달 시 잡기 종료)
             if (_grabbedObject != null && count >= 2)
-                _grabbedObject.position = slice[count - 1];
+            {
+                Vector3 tip = slice[count - 1];
+                _grabbedObject.position = tip;
+
+                if (_grabDropDistance > 0f && Vector3.Distance(armOrigin.position, tip) <= _grabDropDistance)
+                {
+                    if (_enableLog)
+                        Debug.Log($"ArmStretch: [{_grabbedObject.name}] 제한 거리 도달 — 잡기 종료");
+                    ReleaseGrab();
+                }
+            }
 
             // 진행도(0~1)에 따라 커브 값으로 딜레이를 조절 (역순 제거)
             float t = (float)(count - 1) / totalSteps;
@@ -425,6 +443,7 @@ public class ArmStretch : MonoBehaviour
         ReleaseGrab();
         if (_enableLog)
             Debug.Log("ArmStretch: 메시 역순 제거 완료");
+        OnRetractComplete?.Invoke();
     }
 
     #endregion
@@ -495,7 +514,10 @@ public class ArmStretch : MonoBehaviour
                 if (_useGradualMeshGrowth && _currentPath != null && _currentPath.Length > 2)
                     _shrinkMeshCoroutine = StartCoroutine(ShrinkMeshCoroutine(_currentPath));
                 else
+                {
                     tubeMeshBuilder.ClearMesh();
+                    OnRetractComplete?.Invoke();
+                }
             }
             if (_moveHandAlongPath && _handModel != null && _shrinkMeshCoroutine == null)
                 SetHandTransform(armOrigin.position, Vector3.forward, false);

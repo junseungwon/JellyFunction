@@ -204,6 +204,32 @@ namespace CharacterPressing
             }
         }
 
+        /// <summary>
+        /// 캐릭터 → 공 모드로 전환합니다. 타임라인 등 외부에서 호출용.
+        /// 전환 중이거나 이미 Ball 상태면 무시합니다.
+        /// </summary>
+        public void ChangeToBall()
+        {
+            if (_isTransitioning) return;
+            if (_currentState == ModelState.Ball) return;
+            if (_showDebugLog)
+                Debug.Log("[ChangeModel] ChangeToBall (타임라인 호출)", this);
+            StartCharacterToBall();
+        }
+
+        /// <summary>
+        /// 공 → 캐릭터 모드로 전환합니다. 타임라인 등 외부에서 호출용.
+        /// 전환 중이거나 이미 Character 상태면 무시합니다.
+        /// </summary>
+        public void ChangeToCharacter()
+        {
+            if (_isTransitioning) return;
+            if (_currentState == ModelState.Character) return;
+            if (_showDebugLog)
+                Debug.Log("[ChangeModel] ChangeToCharacter (타임라인 호출)", this);
+            StartBallToCharacter();
+        }
+
         #endregion
 
         #region Forward Sequence: Character → Ball

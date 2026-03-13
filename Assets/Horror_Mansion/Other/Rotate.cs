@@ -17,4 +17,8 @@ public class Rotate : MonoBehaviour {
  
         transform.Rotate(x+0f, y+0f, z+0f);
     }
+
+    public void aaa(){
+        Debug.Log("aaa");
+    }
 }
