@@ -74,6 +74,9 @@ namespace CharacterPressing
         public ModelState CurrentState => _currentState;
         public bool IsTransitioning => _isTransitioning;
 
+        /// <summary>캐릭터→볼 전환 시, 볼 팽창(Revert)까지 완료된 뒤 한 번 호출됩니다.</summary>
+        public event System.Action OnBallExpansionCompleted;
+
         #endregion
 
         #region Unity Lifecycle
@@ -277,6 +280,8 @@ namespace CharacterPressing
 
             if (_ballAutoRotate != null)
                 _ballAutoRotate.enabled = true;
+
+            OnBallExpansionCompleted?.Invoke();
 
             if (_showDebugLog)
                 Debug.Log("[ChangeModel] 볼 팽창 완료 | Ball Collider, AutoRotate 활성화", this);
