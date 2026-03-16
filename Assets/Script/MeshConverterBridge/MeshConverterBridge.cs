@@ -80,6 +80,8 @@ public class MeshConverterBridge : MonoBehaviour
         obj.AddComponent<MeshFilter>().sharedMesh        = bakedMesh;
         obj.AddComponent<MeshRenderer>().sharedMaterials = smr.sharedMaterials;
 
+        obj.layer = 31; // Jelly 레이어
+
         return obj;
     }
 

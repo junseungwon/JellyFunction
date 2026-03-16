@@ -77,6 +77,9 @@ namespace CharacterPressing
         /// <summary>캐릭터→볼 전환 시, 볼 팽창(Revert)까지 완료된 뒤 한 번 호출됩니다.</summary>
         public event System.Action OnBallExpansionCompleted;
 
+        /// <summary>볼→캐릭터 전환 시, SpherifyDeformer 복귀까지 완전히 완료된 뒤 한 번 호출됩니다.</summary>
+        public event System.Action OnCharacterRestoreCompleted;
+
         #endregion
 
         #region Unity Lifecycle
@@ -341,6 +344,11 @@ namespace CharacterPressing
                 if (_showDebugLog)
                     Debug.Log("[ChangeModel] OnSpherifyRevertCompletedReverse | SwapAll(false) - SkinnedMesh 활성, MeshFilter 비활성", this);
             }
+
+            OnCharacterRestoreCompleted?.Invoke();
+
+            if (_showDebugLog)
+                Debug.Log("[ChangeModel] 캐릭터 완전 복귀 완료 | OnCharacterRestoreCompleted 발생", this);
         }
 
         #endregion

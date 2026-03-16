@@ -35,6 +35,12 @@ namespace CharacterPressing
         [Tooltip("위치를 줄일 로컬 축 (X/Y/Z)")]
         [SerializeField] PressAxis _positionAxis = PressAxis.Y;
 
+        [Tooltip("Press 시 _boneScaleAxis 이외의 두 축을 목표값까지 팽창시킵니다.")]
+        [SerializeField] bool _expandSideAxesOnPress = false;
+
+        [Tooltip("Press 시 나머지 두 축이 도달할 목표 스케일 값.")]
+        [SerializeField] float _sideScaleTarget = 1.5f;
+
         [Header("Debug")]
         [Tooltip("켜면 초기화·전환 시작/완료 시 콘솔에 로그 출력")]
         [SerializeField] bool _showDebugLog = false;
@@ -309,7 +315,18 @@ namespace CharacterPressing
             {
                 float scaleVal = Mathf.Lerp(_initialBoneScaleAxis, _boneScaleMin, amount);
                 scaleVal = Mathf.Max(scaleVal, _boneScaleMinLimit);
-                _coreBone.localScale = WithScaleAxis(_initialLocalScaleBone, _boneScaleAxis, scaleVal);
+
+                Vector3 newScale = WithScaleAxis(_initialLocalScaleBone, _boneScaleAxis, scaleVal);
+
+                if (_expandSideAxesOnPress)
+                {
+                    if (_boneScaleAxis != PressAxis.X)
+                        newScale.x = Mathf.Lerp(_initialLocalScaleBone.x, _sideScaleTarget, amount);
+                    if (_boneScaleAxis != PressAxis.Z)
+                        newScale.z = Mathf.Lerp(_initialLocalScaleBone.z, _sideScaleTarget, amount);
+                }
+
+                _coreBone.localScale = newScale;
             }
 
             if (_heightTarget != null && !_useContinuousHeightSpeed)
