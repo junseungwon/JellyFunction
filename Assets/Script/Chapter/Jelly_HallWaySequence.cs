@@ -43,10 +43,18 @@ public class Jelly_HallWaySequence : MonoBehaviour
     [Tooltip("이동 시 경로 방향(접선)을 바라보도록 회전할지 여부.")]
     [SerializeField] private bool _rotateAlongPath = true;
 
-    [Header("속도 / 대기 설정")]
-    [Tooltip("모든 이동 구간의 기본 속도 (유닛/초).")]
-    [SerializeField] private float _moveSpeed = 3f;
+    [Header("캐릭터 이동 속도 (Phase0, Phase4)")]
+    [Tooltip("캐릭터 모드 이동 속도 (유닛/초). Phase0·Phase4에 사용됩니다.")]
+    [SerializeField] private float _runSpeed = 3f;
 
+    [Header("볼 이동 속도 (Phase2)")]
+    [Tooltip("볼 기본 이동 속도 (유닛/초). 최종 속도 = 기본 속도 × 커브 배율.")]
+    [SerializeField] private float _ballBaseSpeed = 2f;
+
+    [Tooltip("X=정규화 위치(0~1), Y=속도 배율. 1=기본 속도 그대로, 0.5=절반, 2=2배.")]
+    [SerializeField] private AnimationCurve _ballSpeedCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 1f);
+
+    [Header("대기 설정")]
     [Tooltip("볼 팽창 완료 후 이동 시작 전 추가 대기 시간 (초).")]
     [SerializeField] private float _delayAfterExpansion = 1f;
 
@@ -114,13 +122,25 @@ public class Jelly_HallWaySequence : MonoBehaviour
         float length = GetSplineLength();
         if (length <= 0f) return;
 
-        _currentDistance += _moveSpeed * Time.deltaTime;
+        float speed = GetCurrentSpeed(_t);
+        _currentDistance += speed * Time.deltaTime;
         _t = Mathf.Clamp01(_currentDistance / length);
 
         ApplyPositionAndRotation(_t);
 
         if (_showDebugLog && Time.frameCount % 30 == 0)
-            Debug.Log($"[HallWaySeq] {_currentPhase} | t={_t:F3} | dist={_currentDistance:F2}/{length:F2} | pos={Target.position}", this);
+            Debug.Log($"[HallWaySeq] {_currentPhase} | t={_t:F3} | dist={_currentDistance:F2}/{length:F2} | speed={speed:F2} | pos={Target.position}", this);
+    }
+
+    /// <summary>현재 Phase와 t에 맞는 이동 속도를 반환합니다.</summary>
+    private float GetCurrentSpeed(float t)
+    {
+        if (_currentPhase == Phase.Phase2_Move)
+        {
+            float multiplier = _ballSpeedCurve != null ? Mathf.Max(0f, _ballSpeedCurve.Evaluate(t)) : 1f;
+            return _ballBaseSpeed * multiplier;
+        }
+        return _runSpeed;
     }
 
     /// <summary>
@@ -184,7 +204,7 @@ public class Jelly_HallWaySequence : MonoBehaviour
         _currentPhase = Phase.Phase0_Move;
         _isMoving = true;
 
-        if (_showDebugLog) Debug.Log($"[HallWaySeq] Phase0 이동 시작. SplineLength={GetSplineLength():F2}, speed={_moveSpeed}", this);
+        if (_showDebugLog) Debug.Log($"[HallWaySeq] Phase0 이동 시작. SplineLength={GetSplineLength():F2}, runSpeed={_runSpeed}, ballBaseSpeed={_ballBaseSpeed}", this);
     }
 
     /// <summary>Phase1: idle Trigger → ChangeToBall → 팽창 대기 → Phase2 이동 시작</summary>

@@ -42,7 +42,7 @@ public class HallWayZoneTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("충돌");
-        //if (_triggered && _triggerOnce) return;
+        if (_triggered && _triggerOnce) return;
         if (!other.CompareTag(_targetTag)) return;
         Debug.Log("충돌이됨 메세지 보낼거임.");
         _triggered = true;
@@ -54,7 +54,7 @@ public class HallWayZoneTrigger : MonoBehaviour
         _onZoneEntered?.Invoke();
 
         if (_triggerOnce)
-            gameObject.SetActive(false);
+            GetComponent<Collider>().enabled = false;
     }
 
     /// <summary>외부에서 강제로 Zone 진입 이벤트를 발생시킵니다. 테스트 용도.</summary>

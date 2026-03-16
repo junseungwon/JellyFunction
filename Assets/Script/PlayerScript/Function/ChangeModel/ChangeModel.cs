@@ -56,6 +56,16 @@ namespace CharacterPressing
         [Tooltip("볼에 붙어 있는 AutoRotate. 공 팽창 완료 시 활성화, 모델 전환 시작 시 비활성화")]
         [SerializeField] private AutoRotate _ballAutoRotate = null;
 
+        [Header("볼 → 캐릭터 변환 속도")]
+        [Tooltip("볼이 납작해지는(Press) 데 걸리는 시간 (초).")]
+        [SerializeField] private float _ballPressReverseDuration = 0.5f;
+
+        [Tooltip("메시가 구형에서 원래 모습으로 되돌아오는 데 걸리는 시간 (초).")]
+        [SerializeField] private float _spherifyRevertDuration = 0.5f;
+
+        [Tooltip("캐릭터 Bone 스케일이 복원되는 데 걸리는 시간 (초).")]
+        [SerializeField] private float _characterRevertDuration = 0.5f;
+
         [Header("Debug")]
         [Tooltip("켜면 전환 시작/완료 시 콘솔에 로그 출력")]
         [SerializeField] private bool _showDebugLog = false;
@@ -304,8 +314,18 @@ namespace CharacterPressing
             if (_ballAutoRotate != null)
                 _ballAutoRotate.enabled = false;
 
+            // 역방향 변환 속도 적용
+            if (_ballDeform != null)
+                _ballDeform.PressDuration = _ballPressReverseDuration;
+
+            if (_spherifyDeformer != null)
+                _spherifyDeformer.TransitionDuration = _spherifyRevertDuration;
+
+            if (_characterDeform != null)
+                _characterDeform.RevertDuration = _characterRevertDuration;
+
             if (_showDebugLog)
-                Debug.Log("[ChangeModel] Reverse 시작 | Ball → Character");
+                Debug.Log($"[ChangeModel] Reverse 시작 | Ball → Character | ballPress={_ballPressReverseDuration}s, spherifyRevert={_spherifyRevertDuration}s, charRevert={_characterRevertDuration}s");
 
             _ballDeform.OnPressCompleted += OnBallPressCompletedReverse;
             _ballDeform.Press();
