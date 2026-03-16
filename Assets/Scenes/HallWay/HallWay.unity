@@ -703,11 +703,6 @@ Transform:
   - {fileID: 527689776}
   m_Father: {fileID: 109439696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &154631802 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2181922670129907789, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &179244827
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &192907275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,7 +817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 3
+    m_Value: 2
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -864,7 +859,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 373072374}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &203844586
 GameObject:
@@ -993,11 +988,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 869512902}
   m_LocalEulerAnglesHint: {x: 0, y: 15.12, z: 0}
---- !u!4 &209645495 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2987683050354574050, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &224752961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,8 +1016,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224752961}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000015513859, y: 0.99866503, z: 0.051653896, w: 0.00000002999415}
-  m_LocalPosition: {x: 28.13, y: -65.555, z: 233.31}
+  m_LocalRotation: {x: 0.058063876, y: -0.2676377, z: -0.02172947, w: -0.96152306}
+  m_LocalPosition: {x: 20.210726, y: -65.715805, z: 99.066025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1622,8 +1612,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 224752962}
-  - {fileID: 192907278}
-  - {fileID: 526932796}
   - {fileID: 2056847375}
   - {fileID: 700562842}
   m_Father: {fileID: 0}
@@ -1895,16 +1883,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &415813815 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5507102685011174347, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &424499158 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1546052146938825807, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &446505026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,11 +1918,6 @@ Transform:
   - {fileID: 581366462}
   m_Father: {fileID: 109439696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &456520052 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4140708980220001974, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &461973096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,11 +2089,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &491446062 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 603672961145554834, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &494658563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,7 +2322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 2
+    m_Value: 3
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -2392,11 +2360,11 @@ Transform:
   m_GameObject: {fileID: 526932792}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0057839043, y: 0.015359282, z: -0.00008884859, w: 0.99986535}
-  m_LocalPosition: {x: 24.4, y: -64.9, z: 109.9}
+  m_LocalPosition: {x: 24.4, y: -64.9, z: 109.899994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 373072374}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &527689775
 PrefabInstance:
@@ -3369,6 +3337,106 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6617781387873149172, guid: 06a693ca27ff69141a1dead174205dc1, type: 3}
   m_PrefabInstance: {fileID: 535113022}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &536366966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 536366968}
+  - component: {fileID: 536366967}
+  - component: {fileID: 536366969}
+  m_Layer: 0
+  m_Name: CloseUP_Jelly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &536366967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536366966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 6
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &536366968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536366966}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.058063876, y: -0.2676377, z: -0.02172947, w: -0.96152306}
+  m_LocalPosition: {x: 20.210726, y: -65.715805, z: 99.066025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -7.631, y: 0, z: 0}
+--- !u!114 &536366969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536366966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: -1
+  Gain: 0.2
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &572179540
 GameObject:
   m_ObjectHideFlags: 0
@@ -3379,13 +3447,14 @@ GameObject:
   m_Component:
   - component: {fileID: 572179542}
   - component: {fileID: 572179541}
+  - component: {fileID: 572179543}
   m_Layer: 0
-  m_Name: CinemachineCamera
+  m_Name: MidShot_Human
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &572179541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3399,7 +3468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
@@ -3438,12 +3507,36 @@ Transform:
   m_GameObject: {fileID: 572179540}
   serializedVersion: 2
   m_LocalRotation: {x: -0.013886794, y: -0.017473433, z: -0.0052433973, w: -0.99973714}
-  m_LocalPosition: {x: 22.23321, y: -64.7699, z: 97.97834}
+  m_LocalPosition: {x: 22.23321, y: -64.7699, z: 97.97833}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -7.631, y: 0, z: 0}
+--- !u!114 &572179543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572179540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: -1
+  Gain: 0.2
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &581366461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4514,11 +4607,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 885681aa7256df44e950c6312b8b9c88, type: 3}
   m_PrefabInstance: {fileID: 640291161}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &656182343 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6445638721532332995, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &664537739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4734,11 +4822,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666778552}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &688131466 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7402688955344616526, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &692626572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5390,11 +5473,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &740498215 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2526820948804831682, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &749541275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5606,11 +5684,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!4 &842085705 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 427196662369672118, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &869512901
 GameObject:
   m_ObjectHideFlags: 0
@@ -5881,7 +5954,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4228053340096526153, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
   m_PrefabInstance: {fileID: 1363660319}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &900628952
+--- !u!114 &900628956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5890,494 +5963,67 @@ MonoBehaviour:
   m_GameObject: {fileID: 900628940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c72e1df647af4c0098866e944a04b01, type: 3}
+  m_Script: {fileID: 11500000, guid: 825305d9d1f8ec749ae07280a566f388, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp-firstpass::RootMotion.FinalIK.GrounderFBBIK
-  weight: 1
-  solver:
-    layers:
+  m_EditorClassIdentifier: '::'
+  _impulseSource: {fileID: 900628957}
+  _impulseVelocity: {x: 0, y: -0.2, z: 0}
+  _animator: {fileID: 1363660320}
+  _waveParameterName: Wave
+  _threshold: 0.95
+--- !u!114 &900628957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900628940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 2
+    CustomImpulseShape:
       serializedVersion: 2
-      m_Bits: 134217728
-    maxStep: 0.5
-    heightOffset: 0
-    footSpeed: 2.5
-    footRadius: 0.15
-    footCenterOffset: 0
-    prediction: 0.05
-    footRotationWeight: 1
-    footRotationSpeed: 7
-    maxFootRotationAngle: 45
-    rotateSolver: 0
-    pelvisSpeed: 5
-    pelvisDamper: 0
-    lowerPelvisWeight: 1
-    liftPelvisWeight: 0
-    rootSphereCastRadius: 0.1
-    overstepFallsDown: 1
-    quality: 2
-  ik: {fileID: 900628953}
-  spineBend: 2
-  spineSpeed: 3
-  spine: []
---- !u!114 &900628953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900628940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a70e525c82ce9413fa4d940ad7fcf1db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp-firstpass::RootMotion.FinalIK.FullBodyBipedIK
-  fixTransforms: 1
-  references:
-    root: {fileID: 900628951}
-    pelvis: {fileID: 842085705}
-    leftThigh: {fileID: 424499158}
-    leftCalf: {fileID: 688131466}
-    leftFoot: {fileID: 491446062}
-    rightThigh: {fileID: 1339025099}
-    rightCalf: {fileID: 740498215}
-    rightFoot: {fileID: 1456192959}
-    leftUpperArm: {fileID: 1521546886}
-    leftForearm: {fileID: 456520052}
-    leftHand: {fileID: 1537546105}
-    rightUpperArm: {fileID: 415813815}
-    rightForearm: {fileID: 2037839805}
-    rightHand: {fileID: 154631802}
-    head: {fileID: 1034046171}
-    spine:
-    - {fileID: 2043226005}
-    - {fileID: 1425096971}
-    eyes: []
-  solver:
-    executedInEditor: 0
-    IKPosition: {x: 0, y: 0, z: 0}
-    IKPositionWeight: 1
-    root: {fileID: 900628951}
-    iterations: 4
-    chain:
-    - pin: 0
-      pull: 1
-      push: 0
-      pushParent: 0
-      reach: 0.1
-      reachSmoothing: 1
-      pushSmoothing: 1
-      nodes:
-      - transform: {fileID: 2043226005}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      children: 01000000020000000300000004000000
-      childConstraints:
-      - pushElasticity: 0
-        pullElasticity: 1
-        bone1: {fileID: 1521546886}
-        bone2: {fileID: 1339025099}
-      - pushElasticity: 0
-        pullElasticity: 1
-        bone1: {fileID: 415813815}
-        bone2: {fileID: 424499158}
-      - pushElasticity: 0
-        pullElasticity: 0
-        bone1: {fileID: 1521546886}
-        bone2: {fileID: 415813815}
-      - pushElasticity: 0
-        pullElasticity: 0
-        bone1: {fileID: 424499158}
-        bone2: {fileID: 1339025099}
-      bendConstraint:
-        bone1: {fileID: 0}
-        bone2: {fileID: 0}
-        bone3: {fileID: 0}
-        bendGoal: {fileID: 0}
-        direction: {x: 1, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0, w: 0}
-        weight: 0
-        defaultLocalDirection: {x: 0, y: 0, z: 0}
-        defaultChildDirection: {x: 0, y: 0, z: 0}
-    - pin: 0
-      pull: 1
-      push: 0
-      pushParent: 0
-      reach: 0.1
-      reachSmoothing: 1
-      pushSmoothing: 1
-      nodes:
-      - transform: {fileID: 1521546886}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 456520052}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 1537546105}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      children: 
-      childConstraints: []
-      bendConstraint:
-        bone1: {fileID: 0}
-        bone2: {fileID: 0}
-        bone3: {fileID: 0}
-        bendGoal: {fileID: 0}
-        direction: {x: 1, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0, w: 0}
-        weight: 0
-        defaultLocalDirection: {x: 0, y: 0, z: 0}
-        defaultChildDirection: {x: 0, y: 0, z: 0}
-    - pin: 0
-      pull: 1
-      push: 0
-      pushParent: 0
-      reach: 0.1
-      reachSmoothing: 1
-      pushSmoothing: 1
-      nodes:
-      - transform: {fileID: 415813815}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 2037839805}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 154631802}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      children: 
-      childConstraints: []
-      bendConstraint:
-        bone1: {fileID: 0}
-        bone2: {fileID: 0}
-        bone3: {fileID: 0}
-        bendGoal: {fileID: 0}
-        direction: {x: 1, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0, w: 0}
-        weight: 0
-        defaultLocalDirection: {x: 0, y: 0, z: 0}
-        defaultChildDirection: {x: 0, y: 0, z: 0}
-    - pin: 0
-      pull: 1
-      push: 0
-      pushParent: 0
-      reach: 0.1
-      reachSmoothing: 1
-      pushSmoothing: 1
-      nodes:
-      - transform: {fileID: 424499158}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 688131466}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 491446062}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      children: 
-      childConstraints: []
-      bendConstraint:
-        bone1: {fileID: 0}
-        bone2: {fileID: 0}
-        bone3: {fileID: 0}
-        bendGoal: {fileID: 0}
-        direction: {x: 1, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0, w: 0}
-        weight: 0
-        defaultLocalDirection: {x: 0, y: 0, z: 0}
-        defaultChildDirection: {x: 0, y: 0, z: 0}
-    - pin: 0
-      pull: 1
-      push: 0
-      pushParent: 0
-      reach: 0.1
-      reachSmoothing: 1
-      pushSmoothing: 1
-      nodes:
-      - transform: {fileID: 1339025099}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 740498215}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      - transform: {fileID: 1456192959}
-        weight: 1
-        solverPosition: {x: 0, y: 0, z: 0}
-        solverRotation: {x: 0, y: 0, z: 0, w: 1}
-        defaultLocalPosition: {x: 0, y: 0, z: 0}
-        defaultLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-        length: 0
-        effectorPositionWeight: 0
-        effectorRotationWeight: 0
-        offset: {x: 0, y: 0, z: 0}
-      children: 
-      childConstraints: []
-      bendConstraint:
-        bone1: {fileID: 0}
-        bone2: {fileID: 0}
-        bone3: {fileID: 0}
-        bendGoal: {fileID: 0}
-        direction: {x: 1, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0, w: 0}
-        weight: 0
-        defaultLocalDirection: {x: 0, y: 0, z: 0}
-        defaultChildDirection: {x: 0, y: 0, z: 0}
-    effectors:
-    - bone: {fileID: 2043226005}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones:
-      - {fileID: 424499158}
-      - {fileID: 1339025099}
-      planeBone1: {fileID: 0}
-      planeBone2: {fileID: 0}
-      planeBone3: {fileID: 0}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 1521546886}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 0}
-      planeBone2: {fileID: 0}
-      planeBone3: {fileID: 0}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 415813815}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 0}
-      planeBone2: {fileID: 0}
-      planeBone3: {fileID: 0}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 424499158}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 0}
-      planeBone2: {fileID: 0}
-      planeBone3: {fileID: 0}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 1339025099}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 0}
-      planeBone2: {fileID: 0}
-      planeBone3: {fileID: 0}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 1537546105}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 1521546886}
-      planeBone2: {fileID: 415813815}
-      planeBone3: {fileID: 2043226005}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 154631802}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 415813815}
-      planeBone2: {fileID: 1521546886}
-      planeBone3: {fileID: 2043226005}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 491446062}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 424499158}
-      planeBone2: {fileID: 1339025099}
-      planeBone3: {fileID: 2043226005}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    - bone: {fileID: 1456192959}
-      target: {fileID: 0}
-      positionWeight: 0
-      rotationWeight: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      positionOffset: {x: 0, y: 0, z: 0}
-      effectChildNodes: 1
-      maintainRelativePositionWeight: 0
-      childBones: []
-      planeBone1: {fileID: 1339025099}
-      planeBone2: {fileID: 424499158}
-      planeBone3: {fileID: 2043226005}
-      planeRotationOffset: {x: 0, y: 0, z: 0, w: 1}
-    spineMapping:
-      spineBones:
-      - {fileID: 842085705}
-      - {fileID: 2043226005}
-      - {fileID: 1425096971}
-      leftUpperArmBone: {fileID: 1521546886}
-      rightUpperArmBone: {fileID: 415813815}
-      leftThighBone: {fileID: 424499158}
-      rightThighBone: {fileID: 1339025099}
-      iterations: 3
-      twistWeight: 1
-    boneMappings:
-    - bone: {fileID: 1034046171}
-      maintainRotationWeight: 0
-    limbMappings:
-    - parentBone: {fileID: 656182343}
-      bone1: {fileID: 1521546886}
-      bone2: {fileID: 456520052}
-      bone3: {fileID: 1537546105}
-      maintainRotationWeight: 0
-      weight: 1
-    - parentBone: {fileID: 209645495}
-      bone1: {fileID: 415813815}
-      bone2: {fileID: 2037839805}
-      bone3: {fileID: 154631802}
-      maintainRotationWeight: 0
-      weight: 1
-    - parentBone: {fileID: 0}
-      bone1: {fileID: 424499158}
-      bone2: {fileID: 688131466}
-      bone3: {fileID: 491446062}
-      maintainRotationWeight: 1
-      weight: 1
-    - parentBone: {fileID: 0}
-      bone1: {fileID: 1339025099}
-      bone2: {fileID: 740498215}
-      bone3: {fileID: 1456192959}
-      maintainRotationWeight: 1
-      weight: 1
-    FABRIKPass: 1
-    rootNode: {fileID: 2043226005}
-    spineStiffness: 0.5
-    pullBodyVertical: 0.5
-    pullBodyHorizontal: 0
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 2
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 50
+    PropagationSpeed: 100
+  DefaultVelocity: {x: 0, y: 0, z: 0}
 --- !u!1001 &934791308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7969,11 +7615,6 @@ MonoBehaviour:
   _drawPathWithHitInfo: 1
   _enableLog: 1
   _logPathValues: 1
---- !u!4 &1034046171 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2487761146669125391, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1035706426
 GameObject:
   m_ObjectHideFlags: 0
@@ -8359,6 +8000,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 885681aa7256df44e950c6312b8b9c88, type: 3}
   m_PrefabInstance: {fileID: 1098323826}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1115254312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115254314}
+  - component: {fileID: 1115254313}
+  m_Layer: 0
+  m_Name: ClearShot Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1115254313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115254312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62f748f5292bb343be9e6b0c84416d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineClearShot
+  Priority:
+    Enabled: 1
+    m_Value: 10
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  DefaultTarget:
+    Enabled: 0
+    Target:
+      TrackingTarget: {fileID: 0}
+      LookAtTarget: {fileID: 0}
+      CustomLookAtTarget: 0
+  DefaultBlend:
+    Style: 1
+    Time: 0.5
+    CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  CustomBlends: {fileID: 0}
+  ActivateAfter: 0
+  MinDuration: 0
+  RandomizeChoice: 0
+  m_LegacyLookAt: {fileID: 0}
+  m_LegacyFollow: {fileID: 0}
+--- !u!4 &1115254314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115254312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.06874, y: -57.71835, z: 285.8819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1230078816
 GameObject:
   m_ObjectHideFlags: 0
@@ -8958,11 +8671,6 @@ MonoBehaviour:
   _zoomSpeed: 3
   _zoomSmoothSpeed: 8
   _followSmoothSpeed: 10
---- !u!4 &1339025099 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1983243734217415217, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1363660319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11137,7 +10845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8892656294725328380, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8903342664339492546, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
       propertyPath: m_Layer
@@ -11223,11 +10931,16 @@ PrefabInstance:
       addedObject: {fileID: 900628948}
     - targetCorrespondingSourceObject: {fileID: 8892656294725328380, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 900628953}
+      addedObject: {fileID: 900628956}
     - targetCorrespondingSourceObject: {fileID: 8892656294725328380, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 900628952}
+      addedObject: {fileID: 900628957}
   m_SourcePrefab: {fileID: 100100000, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
+--- !u!95 &1363660320 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7080167482663148782, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
+  m_PrefabInstance: {fileID: 1363660319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1405445225
 GameObject:
   m_ObjectHideFlags: 0
@@ -11290,11 +11003,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!4 &1425096971 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5355147049141027642, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1435778349
 GameObject:
   m_ObjectHideFlags: 0
@@ -11679,11 +11387,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &1456192959 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4271922204097195310, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1457199754
 GameObject:
   m_ObjectHideFlags: 0
@@ -11716,11 +11419,6 @@ Transform:
   - {fileID: 639904709}
   m_Father: {fileID: 527689782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1521546886 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3583970010916846171, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1530532843
 GameObject:
   m_ObjectHideFlags: 0
@@ -11848,11 +11546,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 869512902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1537546105 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7391421097559848441, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1541075068
 GameObject:
   m_ObjectHideFlags: 0
@@ -14731,7 +14424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1830120190
 Transform:
   m_ObjectHideFlags: 0
@@ -14767,6 +14460,16 @@ PlayableDirector:
     value: {fileID: 4361493442364643243}
   - key: {fileID: -7338627480499514812, guid: 84c83d7560498374daa4030ff9a34d4a, type: 2}
     value: {fileID: 900628948}
+  - key: {fileID: -690973427804425919, guid: 84c83d7560498374daa4030ff9a34d4a, type: 2}
+    value: {fileID: 192907274}
+  - key: {fileID: 8631702764461242949, guid: 84c83d7560498374daa4030ff9a34d4a, type: 2}
+    value: {fileID: 526932792}
+  - key: {fileID: 6998892634044101591, guid: 84c83d7560498374daa4030ff9a34d4a, type: 2}
+    value: {fileID: 572179540}
+  - key: {fileID: -5874614441448584983, guid: 84c83d7560498374daa4030ff9a34d4a, type: 2}
+    value: {fileID: 536366966}
+  - key: {fileID: -178527787956444317, guid: 84c83d7560498374daa4030ff9a34d4a, type: 2}
+    value: {fileID: 2062213530}
   m_ExposedReferences:
     m_References: []
 --- !u!1001 &1856150027
@@ -15881,16 +15584,6 @@ MonoBehaviour:
   _drawPathWithHitInfo: 1
   _enableLog: 1
   _logPathValues: 1
---- !u!4 &2037839805 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2608581728835177140, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2043226005 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5717612588869883114, guid: 882d650a6b768df4aaa63eb36ea9ce0a, type: 3}
-  m_PrefabInstance: {fileID: 1363660319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2045378982
 GameObject:
   m_ObjectHideFlags: 0
@@ -16146,6 +15839,123 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   camA: {fileID: 192907277}
   camB: {fileID: 526932795}
+--- !u!1 &2062213530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2062213534}
+  - component: {fileID: 2062213533}
+  - component: {fileID: 2062213532}
+  - component: {fileID: 2062213535}
+  m_Layer: 0
+  m_Name: CinemachineCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2062213532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062213530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 1, y: 1, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: 15, z: -70}
+--- !u!114 &2062213533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062213530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 6
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 900628951}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &2062213534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062213530}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 30.04327, y: -51.312737, z: 236.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+--- !u!114 &2062213535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062213530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17ef14a25abb2f47b87825858c6d048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoRotate
+  speedX: 0
+  speedY: 0
+  speedZ: 4
+  rotationSpace: 0
+  paused: 0
+  useDelay: 1
+  delayTime: 3
+  useAcceleration: 0
+  smoothTime: 0
 --- !u!1 &2073246634
 GameObject:
   m_ObjectHideFlags: 0
@@ -18102,6 +17912,9 @@ MonoBehaviour:
   _ballObject: {fileID: 0}
   _ballCollider: {fileID: 0}
   _ballAutoRotate: {fileID: 0}
+  _ballPressReverseDuration: 0.5
+  _spherifyRevertDuration: 0.5
+  _characterRevertDuration: 0.5
   _showDebugLog: 1
 --- !u!4 &9034856639117591380
 Transform:
@@ -19143,4 +18956,9 @@ SceneRoots:
   - {fileID: 934791308}
   - {fileID: 461973097}
   - {fileID: 66580587}
+  - {fileID: 1115254314}
+  - {fileID: 192907278}
+  - {fileID: 526932796}
   - {fileID: 572179542}
+  - {fileID: 536366968}
+  - {fileID: 2062213534}

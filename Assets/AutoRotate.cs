@@ -16,20 +16,29 @@ public class AutoRotate : MonoBehaviour
     [Tooltip("켜면 회전을 멈춥니다.")]
     public bool paused = false;
 
+    [Header("딜레이")]
+    [Tooltip("켜면 아래 delayTime(초) 이후에 회전을 시작합니다.")]
+    public bool useDelay = false;
+    [Tooltip("회전 시작까지 대기할 시간 (초). useDelay가 켜져 있을 때만 적용됩니다.")]
+    public float delayTime = 1f;
+
     [Header("가속/감속")]
-    [Tooltip("0이면 즉시 설정 속도로 회전. 0보다 크면 그 시간(초) 동안 서서히 목표 속도에 도달합니다.")]
-    public float smoothTime = 0f;
+    [Tooltip("켜면 아래 smoothTime 동안 서서히 목표 속도에 도달합니다.")]
+    public bool useAcceleration = false;
+    [Tooltip("목표 속도에 도달하는 데 걸리는 시간 (초). useAcceleration이 켜져 있을 때만 적용됩니다.")]
+    public float smoothTime = 1f;
 
     Vector3 currentSpeed;
+    float _elapsedTime;
 
-    void Start()
+    void OnEnable()
     {
-        currentSpeed = new Vector3(speedX, speedY, speedZ);
+        _elapsedTime = 0f;
+        currentSpeed = Vector3.zero;
     }
 
     void OnDisable()
     {
-        // 회전 비활성화 시 로컬 회전과 내부 속도 초기화
         transform.localRotation = Quaternion.identity;
         currentSpeed = Vector3.zero;
     }
@@ -38,9 +47,14 @@ public class AutoRotate : MonoBehaviour
     {
         if (paused) return;
 
+        _elapsedTime += Time.deltaTime;
+
+        if (useDelay && _elapsedTime < delayTime)
+            return;
+
         Vector3 targetSpeed = new Vector3(speedX, speedY, speedZ);
 
-        if (smoothTime > 0f)
+        if (useAcceleration && smoothTime > 0f)
         {
             currentSpeed = Vector3.Lerp(currentSpeed, targetSpeed, Time.deltaTime / smoothTime);
         }

@@ -7,6 +7,8 @@ public class CinemachineCameraChange : MonoBehaviour
     public CinemachineCamera camA;
     public CinemachineCamera camB;
 
+
+    //추가 카메라 전환.
     public void SwitchToB()
     {
         camA.gameObject.SetActive(false);
