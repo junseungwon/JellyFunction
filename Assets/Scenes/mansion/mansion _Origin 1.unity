@@ -2229,7 +2229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &47038114
 Transform:
   m_ObjectHideFlags: 0
@@ -13263,6 +13263,7 @@ MonoBehaviour:
   _wpoPropertyName: _WPOIntensity
   _defaultIntensity: 0.1
   _excitedIntensity: 0.2
+  _transitionDuration: 0.3
   _intensityStep: 0.05
   _showDebugLog: 0
 --- !u!114 &263691506
@@ -61671,7 +61672,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _meshShrinkInterval: 0.2
+  _meshShrinkInterval: 0.1
   _meshShrinkCurve:
     serializedVersion: 2
     m_Curve:
@@ -95071,72 +95072,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 664559769400160387, guid: 6de19dacbb3bb7e469d69071435b0bba, type: 3}
   m_PrefabInstance: {fileID: 2047815609}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2048556559
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4361493441637516752, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: _groundLayer.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188436852993589132, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_Name
-      value: Jelly
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188436852993589132, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5374.625
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 120.000046
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 5180.919
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856604935003186486, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8188436852993589135, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58b4b597a3fae9a4b91364e152ed77ce, type: 3}
 --- !u!1001 &2050049529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101508,7 +101443,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.91681844, z: -0, w: 0.39930445}
   m_LocalPosition: {x: 5471.295, y: 135.261, z: 5014.362}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 186763143}
@@ -103453,6 +103388,7 @@ MonoBehaviour:
   _wpoPropertyName: _WPOIntensity
   _defaultIntensity: 0.1
   _excitedIntensity: 0.2
+  _transitionDuration: 0.3
   _intensityStep: 0.05
   _showDebugLog: 0
 --- !u!4 &9034856639418301795
@@ -104398,4 +104334,3 @@ SceneRoots:
   - {fileID: 2031134788}
   - {fileID: 362202961}
   - {fileID: 47038114}
-  - {fileID: 2048556559}

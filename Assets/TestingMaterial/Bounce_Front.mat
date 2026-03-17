@@ -87,7 +87,7 @@ Material:
     - _TriplanarContrast: 1
     - _UseWorldSpace: 0
     - _WPOAxisMask: 0
-    - _WPOIntensity: 0.05
+    - _WPOIntensity: 0.02
     - _WPOTriplanarContrast: 1
     - _WorldorVertex: 0
     m_Colors:
