@@ -26201,7 +26201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7094446647363773614, guid: d7d8b25fdc9141648b8c844496941ae7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 5.969
       objectReference: {fileID: 0}
     - target: {fileID: 7094446647363773614, guid: d7d8b25fdc9141648b8c844496941ae7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -47643,8 +47643,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997716313}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0919162, y: 0.9050833, z: -0.25231096, w: -0.32971942}
-  m_LocalPosition: {x: 5379.461, y: 124.578, z: 5191.928}
+  m_LocalRotation: {x: -0.053877495, y: 0.94266343, z: -0.27071348, w: -0.18760923}
+  m_LocalPosition: {x: 5376.345, y: 122.87, z: 5190.365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47677,8 +47677,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.4826221
-      value: 2.301422
+      time: 0.35475343
+      value: 2.129486
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -47686,14 +47686,14 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6309889
-      value: 3.0729594
-      inSlope: 3.523677
-      outSlope: 3.523677
+      time: 0.6096886
+      value: 2.1360793
+      inSlope: 1.4743435
+      outSlope: 1.4743435
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.27390358
+      inWeight: 0.121801205
+      outWeight: 0.10762024
     - serializedVersion: 3
       time: 0.7651678
       value: 4.36082
@@ -58183,23 +58183,23 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 4.8564453
-        y: 4.577957
-        z: 4.1538086
+        x: 1.7407227
+        y: 2.869957
+        z: 2.5908203
       TangentIn:
         x: -0
         y: -0
-        z: -1.1380953
+        z: -0.84124106
       TangentOut:
         x: 0
         y: 0
-        z: 1.1380953
+        z: 0.84124106
       Rotation:
         value:
-          x: -0.59571856
-          y: 0.74796975
-          z: -0.009181987
-          w: -0.2925344
+          x: -0.6247435
+          y: 0.75983405
+          z: -0.045932017
+          w: -0.173891
     - Position:
         x: 0.00048828125
         y: 0.45495605
@@ -66902,8 +66902,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381609035}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0919162, y: 0.9050833, z: -0.25231096, w: -0.32971942}
-  m_LocalPosition: {x: 5379.461, y: 124.578, z: 5191.928}
+  m_LocalRotation: {x: -0.053877495, y: 0.94266343, z: -0.27071348, w: -0.18760923}
+  m_LocalPosition: {x: 5376.345, y: 122.87, z: 5190.365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
