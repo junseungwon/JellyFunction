@@ -11,8 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: a71207d95676b014da7ca29b51aff519, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _WPOAXISMASK_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -87,14 +86,14 @@ Material:
     - _SpecularHighlights: 1
     - _TriplanarContrast: 1
     - _UseWorldSpace: 0
-    - _WPOAxisMask: 1
-    - _WPOIntensity: 0.01
+    - _WPOAxisMask: 0
+    - _WPOIntensity: 0.05
     - _WPOTriplanarContrast: 1
     - _WorldorVertex: 0
     m_Colors:
     - _AxisMaskSelector: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FrColor: {r: 0.17205401, g: 0.5486263, b: 0.6754716, a: 1}
+    - _FrColor: {r: 0.17205396, g: 0.5486263, b: 0.6754716, a: 0}
     - _MatcapTint: {r: 0, g: 0.53969556, b: 0.66792446, a: 1}
     - _NoiseSpeed: {r: 0.1, g: 0.3, b: 0, a: 0}
     - _NormalTile: {r: 0.2, g: 0.05, b: 0.2, a: 1}
